@@ -35,7 +35,7 @@ const config = {
     },
     devServer: {
         hot: true,
-        port: 3000
+        port: 5000
     },
     plugins: [
         new HtmlWebPackPlugin({
