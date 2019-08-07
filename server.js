@@ -13,5 +13,3 @@ app.listen(3001, () => {
     console.log("Server started, listening on port 3001");
 });
 
-// Random comment
-// Comment again
