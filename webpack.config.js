@@ -3,12 +3,11 @@ const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const config = {
-    entry: {
-        app: './client/src/components/app.js'
-    },
+    entry: './client/src/App.js',
+
     devtool: "inline-source-map",
     output: {
-        path: path.resolve(__dirname, 'client/public'),
+        path: path.resolve(__dirname, './dist'),
         filename: 'bundle.js'
     },
     module: {

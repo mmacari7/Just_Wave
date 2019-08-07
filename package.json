@@ -2,26 +2,26 @@
   "name": "just_wave",
   "version": "1.0.0",
   "description": "Application that provides wave information to user in addition to live chat",
-  "main": "./client/src/app.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development",
-    "build": "wepback"
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "wepback --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Michael Macari, Matt Sorrentino",
   "license": "ISC",
   "dependencies": {
-    "babel-loader": "^8.0.6",
+    "bootstrap": "^4.1.3",
     "concurrently": "^4.1.1",
     "express": "^4.17.1",
     "html-webpack-plugin": "^3.2.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "bootstrap": "^4.1.3",
     "jquery": "^3.3.1",
-    "popper.js": "^1.14.4"
+    "popper.js": "^1.14.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/core": "^7.1.0",
     "@babel/plugin-syntax-class-properties": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
