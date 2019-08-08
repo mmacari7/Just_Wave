@@ -35,12 +35,35 @@ const config = {
     },
     devServer: {
         hot: true,
-        port: 5000
+        port: 5000,
+        open: true,
+        // proxy: {
+        //     "/api/**": {
+        //         target: "http://localhost:3000",
+        //         secure: false,
+        //         changeOrigin: true
+        //     } 
+        // }
+
+        // proxy: {
+        //     '/api*' : {
+        //         target: 'http://localhost:3000'
+        //     }
+        // }
+
+        
+        // This one works, not entirely sure why vs the others
+        proxy: {
+            context: () => true,
+            target: "http://localhost:3000"
+        }
+
     },
     plugins: [
         new HtmlWebPackPlugin({
             inject: true,
-            template: './client/public/index.html'
+            template: './client/public/index.html',
+            favicon: "./client/public/favicon.ico"
         }),
         new webpack.HotModuleReplacementPlugin()
     ]
