@@ -11,11 +11,17 @@ import '../css/index.css';
 
 
 class App extends Component {
+
+  customOnClick = function(){
+    fetch("/getMe");
+  }
+
   render(){
     return (
       <div>
         <main>
             <Header />
+            {/* <button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button> */}
             <Forecast />
             <Chat />
         </main>
