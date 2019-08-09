@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import Forecast from './forecast';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 import Header from './header';
+import Forecast from './forecast';
 import Chat from './chat';
 
 
@@ -9,6 +11,12 @@ import '../css/App.css';
 import '../css/index.css';
 
 
+{/* <Route
+  path='/test'
+  render={(props) => <App {...props} loc={1} />}
+/> */}
+
+var locationCode = "0001";
 
 class App extends Component {
 
@@ -21,7 +29,7 @@ class App extends Component {
       <div>
         <main>
             <Header />
-            {/* <button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button> */}
+            <button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button>
             <Forecast />
             <Chat />
         </main>
