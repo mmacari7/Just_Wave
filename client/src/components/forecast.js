@@ -64,53 +64,63 @@ class Forecast extends Component {
         })
     }
 
-    componentDidMount() {
-        fetch('http://api.openweathermap.org/data/2.5/weather?q=5024&appid=36fd2ffa1c54bea102544e13a622e3a5')
-		.then(res => res.json())
-		.then(data => {
-			if(data.data.cod === '404') {
-				this.setState({
-					isLoading: false,
-					cityNotFound: '404'
-				})
-			} else {
-			   // Determine weather icon
-			//    let weatherId = data.data.weather[0].id;
+    async componentDidMount() {
+        try {
+            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=5024&appid=36fd2ffa1c54bea102544e13a622e3a5');
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            const json = await response.json();
+            this.setState({ data: json });
+        } catch (error) {
+            console.log(error);
+        }
 
-			//    if(weatherId <= 232) {
-			//         this.setState({ weatherIcon: ThunderStormIcon })
-			//    } else if(weatherId >= 300 && weatherId <= 531) {
-			//         this.setState({ weatherIcon: RainIcon });
-			//    } else if(weatherId >= 600 && weatherId <= 622 ) {
-			//         this.setState({ weatherIcon: SnowIcon });
-			//    } else if(weatherId === 800) {
-			//         this.setState({ weatherIcon: ClearIcon });
-			//    } else if(weatherId >= 801 && weatherId <= 804) {
-			//         this.setState({ weatherIcon: CloudsIcon });
-			//    }
-			     this.setState({
-			        isLoading: false,
-			        currentTemp: Math.round(data.data.main.temp) + '°',
-			        humidity: data.data.main.humidity + '%',
-			        wind: Math.round(data.data.wind.speed) + ' mph',
-			        windDirection: data.data.wind.deg,
-			        currentCondition: data.data.weather[0].main,
-			        currentConditionDescription: data.data.weather[0].description,
-			        cityName: data.data.name
-			     });
-			}
-		})
-		.catch(err => {
-		   console.log(err);
-		})	
+		// .then(res => res.json())
+		// .then(data => {
+			// if(this.state.data.data.cod === '404') {
+			// 	this.setState({
+			// 		isLoading: false,
+			// 		cityNotFound: '404'
+			// 	})
+			// } else {
+			//    // Determine weather icon
+			// //    let weatherId = data.data.weather[0].id;
+
+			// //    if(weatherId <= 232) {
+			// //         this.setState({ weatherIcon: ThunderStormIcon })
+			// //    } else if(weatherId >= 300 && weatherId <= 531) {
+			// //         this.setState({ weatherIcon: RainIcon });
+			// //    } else if(weatherId >= 600 && weatherId <= 622 ) {
+			// //         this.setState({ weatherIcon: SnowIcon });
+			// //    } else if(weatherId === 800) {
+			// //         this.setState({ weatherIcon: ClearIcon });
+			// //    } else if(weatherId >= 801 && weatherId <= 804) {
+			// //         this.setState({ weatherIcon: CloudsIcon });
+			// //    }
+			//      this.setState({
+			//         isLoading: false,
+			//         currentTemp: Math.round(data.data.main.temp) + '°',
+			//         humidity: data.data.main.humidity + '%',
+			//         wind: Math.round(data.data.wind.speed) + ' mph',
+			//         windDirection: data.data.wind.deg,
+			//         currentCondition: data.data.weather[0].main,
+			//         currentConditionDescription: data.data.weather[0].description,
+			//         cityName: data.data.name
+			//      });
+			// }
+	
+		// .catch(err => {
+		//    console.log(err);
+		// })	
       }
     
 
     render() {
-        const thistemp = (
-            <div>ABC</div>
-        )
-        
+
+        if (!this.state.data) {
+            return <div />
+        }
  
         const WeatherCardError = (
             <div className='weatherCardContainer'>
@@ -148,11 +158,12 @@ class Forecast extends Component {
          const LoadingDisplay = (
             <div className='loading'>
                {/* <img className='loadingIcon' src={LoadingIcon} alt='loading icon'/> */}
+               LOADING
             </div>
          )
 
          const CurrentWeatherCard = ( 
-            this.state.isLoading === true ? <div> {LoadingDisplay} </div> : <div> {WeatherConditions} </div>
+            this.state.currentTemp === true ? <div> {LoadingDisplay} </div> : <div> {WeatherConditions} </div>
          )
 
         return (
@@ -161,8 +172,8 @@ class Forecast extends Component {
                 <div className="container">
                     <div>
                     { CurrentWeatherCard }
+                    {/* { this.state.currentTemp } */}
                     </div>
-                    <div>{thistemp}</div>
                     <div className="row">
                         <div className="col-sm fc-item">
                             <div className="row">
