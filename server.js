@@ -1,7 +1,7 @@
 // Ssets up our express server
 const express = require("express");
 const path = require('path');
-const { sendMessage } = require('./redis/nrp-sender-shim');
+//const { sendMessage } = require('./redis/nrp-sender-shim');
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);

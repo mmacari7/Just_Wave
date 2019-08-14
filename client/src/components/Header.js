@@ -9,20 +9,31 @@ class Header extends Component {
 
     render() {
         return (
-            <div className="jumbotron jumbotron-fluid jumbotron-main">
-                <div className="container">
-                    <h1 className="display-4">Just Wave</h1>
-                    <p className="lead">Welcome to Just Wave, your source for surf and weather information at some of America's hottest surf spots. Select a location for up-to-date reports and to communicate with other local surfers.</p>
-                </div>
-                <nav aria-label="...">
-                    <ul className="pagination pagination-lg justify-content-center">
-                        <li className="page-item loc-button"><a className="page-link" href="#">Pipeline, HI</a></li>
-                        <li className="page-item loc-button"><a className="page-link" href="#">Newport Beach, CA</a></li>
-                        <li className="page-item loc-button"><a className="page-link" href="#">Laguna Beach, CA</a></li>
-                        <li className="page-item loc-button"><a className="page-link" href="#">Ocean City, MD</a></li>
-                    </ul>
-                </nav>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand" href="/">Just Wave</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul className="navbar-nav">
+                    <li className="nav-item active">
+                        <a className="nav-link" href="/seabright">Sea Bright, NJ <span className="sr-only">(current)</span></a>
+                    </li>
+                    <li className="nav-item active">
+                        <a className="nav-link" href="#">Pipeline, HI <span className="sr-only">(current)</span></a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">Newport Beach, CA</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">Laguana Beach, CA</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">Ocean City, MD</a>
+                    </li>
+                </ul>
             </div>
+            </nav>
         );
     }
 }

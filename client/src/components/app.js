@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 // Import our routes for the react router
 import Home from './Home';
-
 import Header from './Header';
+import SeaBright from './SeaBright';
 // import Forecast from './Forecast';
 // import Chat from './Chat';
 
@@ -33,9 +33,12 @@ class App extends Component {
   render(){
     return (
       <Router>
-      {/* <Header/> */}
+        <Header/>
         <button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button>
-        <Route path="/home" component={Home}/>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route exact path="/seabright" component={SeaBright}/>
+        </Switch>
       </Router>
       
       //<Header/>
