@@ -14,7 +14,7 @@
 
 
 let apiKey = "36fd2ffa1c54bea102544e13a622e3a5";
-let city = 'wayne';
+let city = '7372';
 let weather = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
 
 // module.exports = {
