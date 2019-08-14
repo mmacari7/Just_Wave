@@ -25,9 +25,9 @@ class Chat extends Component {
                             </div>
                             <div className="field-area">
                                 <label htmlFor="message">Message</label>
-                                <input className="input" type="text" name="message" id="message" placeholder="Enter a message." />
+                                <input className="input msg-input" type="text" name="message" id="message" placeholder="Type your message." />
                             </div>
-                            <button className="button go-button" type="submit"> Go </button>
+                            <button className="button go-button" type="submit"> Send </button>
                         </form>
                     </div>
                 </div>
