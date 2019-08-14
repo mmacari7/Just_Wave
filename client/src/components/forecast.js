@@ -1,4 +1,7 @@
 import React, {Component} from "react";
+
+// import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 const weather = require('../../../worker/weather');
 
 import '../css/index.css'
@@ -49,29 +52,39 @@ import '../css/index.css'
 class Forecast extends Component {
     constructor(props) {
         super(props);
-
-        this.state = ({
-            isLoading: true,
-            currentTemp: '',
-            humidity: '',
-            wind: '',
-            windDirection: '',
-            currentCondition: '',
-            currentConditionDescription: '',
-            weatherIcon: '',
-            cityName: '',
-            cityNotFound: ''
-        })
+        this.state = { data: [] };
+        // this.state = ({
+        //     isLoading: true,
+        //     currentTemp: '',
+        //     humidity: '',
+        //     wind: '',
+        //     windDirection: '',
+        //     currentCondition: '',
+        //     currentConditionDescription: '',
+        //     weatherIcon: '',
+        //     cityName: '',
+        //     cityNotFound: ''
+        // })
     }
 
     async componentDidMount() {
         try {
-            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=5024&appid=36fd2ffa1c54bea102544e13a622e3a5');
-            if (!response.ok) {
-                throw Error(response.statusText);
-            }
+            // const response = await weather.fetchData();
+            const response = await axios.get('http://api.openweathermap.org/data/2.5/weather?q=5024&appid=36fd2ffa1c54bea102544e13a622e3a5');
+            // if (!response.ok) {
+            //     throw Error(response.statusText);
+            // }
             const json = await response.json();
-            this.setState({ data: json });
+            this.setState({data: json});
+            // this.state({ isLoading: false,
+            //             currentTemp: json//Math.round(json.main.temp) + '°'
+            //             // humidity: data.data.main.humidity + '%',
+            //             // wind: Math.round(data.data.wind.speed) + ' mph',
+            //             // windDirection: data.data.wind.deg,
+            //             // currentCondition: data.data.weather[0].main,
+            //             // currentConditionDescription: data.data.weather[0].description,
+            //             // cityName: data.data.name 
+            //         })
         } catch (error) {
             console.log(error);
         }
@@ -119,7 +132,7 @@ class Forecast extends Component {
     render() {
 
         if (!this.state.data) {
-            return <div />
+            return <div>NO DATA</div>
         }
  
         const WeatherCardError = (
@@ -143,14 +156,14 @@ class Forecast extends Component {
                  {/* <img src={this.state.weatherIcon} alt='Weather icon'/> */}
                     <div className='conditionsOverview'>
                        <p>{this.state.currentTemp}</p>
-                       <p>{this.state.currentConditionDescription}</p>
+                       {/* <p>{this.state.currentConditionDescription}</p> */}
                     </div>
-                    <div className='conditionDetails'>
+                    {/* <div className='conditionDetails'>
                        <p>Humidity: {this.state.humidity} </p>
                        <p>Wind Speed: {this.state.wind} </p>
-                    </div>
+                    </div> */}
                    </div> 
-                  <h4> Location | {this.state.cityName} </h4>
+                  {/* <h4> Location | {this.state.cityName} </h4> */}
                 </div>
              </div>
          )
@@ -171,8 +184,14 @@ class Forecast extends Component {
                 <h2 className="loc-heading">Beach Name, State</h2>
                 <div className="container">
                     <div>
-                    { CurrentWeatherCard }
+                    {/* { CurrentWeatherCard } */}
                     {/* { this.state.currentTemp } */}
+                    {/* {this.state.data.map(el => (
+                        <li>
+                        {el.name}: {el.visibility}
+                        </li>
+                    ))} */}
+                    { this.state.data.visiblity }
                     </div>
                     <div className="row">
                         <div className="col-sm fc-item">

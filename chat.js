@@ -1,22 +1,14 @@
-// Starts our server
-const express = require("express");
+const express = require('express');
 const path = require('path');
-const { sendMessage } = require('./redis/nrp-sender-shim');
+const { sendMessage } = require('/redis/nrp-sender-shim');
 const app = express();
 
-// Serves our build from webpack --> production
-app.use(express.static("dist"));
+// Just serve static files
+app.use(express.static(path.join(__dirname + '/static/')));
 
-// Get the base route
-app.get('/getMe', (req, res) => {
-    console.log("Doing nothing.");
-    res.json({message: "Hello World"});
-})
-
-
-const server = app.listen(3000, () => {
-    console.log("Server started. Listening on port 3000.");
-});
+const server = app.listen(3000, () =>
+    console.log("We've now got a server! Your routes will be running on http://localhost:3000")
+);
 
 const io = require('socket.io')(server);
 
@@ -41,7 +33,7 @@ io.sockets.on('connect', socket => {
             socket.emit('valid');
             console.log(`Assigned ${data.username} to socket id ${socket.id}`);
          }
-         
+
          const dataToBePosted = {
             user: socket.username,
             message: data.message

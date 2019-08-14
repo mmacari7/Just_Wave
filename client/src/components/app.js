@@ -9,6 +9,7 @@ import Chat from './chat';
 // import logo from '../logo.svg';
 import '../css/App.css';
 import '../css/index.css';
+// import '../js/script';
 
 
 {/* <Route
