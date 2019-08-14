@@ -20,16 +20,16 @@ class Header extends Component {
                         <a className="nav-link" href="/seabright">Sea Bright, NJ <span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item active">
-                        <a className="nav-link" href="#">Pipeline, HI <span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="/pipeline">Pipeline, HI <span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Newport Beach, CA</a>
+                        <a className="nav-link" href="/newport">Newport Beach, CA</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Laguana Beach, CA</a>
+                        <a className="nav-link" href="/laguana">Laguana Beach, CA</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Ocean City, MD</a>
+                        <a className="nav-link" href="/oceancity">Ocean City, MD</a>
                     </li>
                 </ul>
             </div>

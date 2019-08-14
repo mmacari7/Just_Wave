@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import '../css/index.css'
 
 
-class SeaBright extends Component {
+class Laguana extends Component {
     constructor(props) {
         super(props);
     }
@@ -10,11 +10,11 @@ class SeaBright extends Component {
     render() {
         return (
             <div>
-                <h1>SEA BRIGHT</h1>
-                <p>Hello Friends, this is Sea Bright :)</p>
+                <h1>LAGUANA</h1>
+                <p>Hello Friends, this is Laguana :)</p>
             </div>
         );
     }
 }
 
-export default SeaBright;
+export default Laguana;
