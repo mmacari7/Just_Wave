@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import '../css/index.css'
 import io from 'socket.io-client';
+// import {ThemeProvider} from '@livechat/ui-kit';
 
 const url = "http://localhost:3000/seabright"
 
@@ -18,9 +19,21 @@ class SeaBright extends Component {
 
     render() {
         return (
-            <div>
-                <h1>SEA BRIGHT</h1>
-                <p>Hello Friends, this is Sea Bright :)</p>
+            <div className='container'>
+                <div>
+                    <h1>SEA BRIGHT</h1>
+                    <p>Hello Friends, this is Sea Bright :)</p>
+                </div>
+
+                <form>
+                    <div className='form-group'>
+                        <label htmlFor="username-input">User Name</label>
+                        <input type="text" className="form-control" required/>
+                    </div>
+                </form>
+
+
+
             </div>
         );
     }

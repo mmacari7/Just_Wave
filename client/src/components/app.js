@@ -50,22 +50,6 @@ class App extends Component {
         </Switch>
       </Router>
       
-      //<Header/>
-      // <Router>
-      //   <Route path="/" component={Home}></Route>
-        
-      // </Router>
-
-      
-      // <div>
-      //   <main>
-      //       <Header />
-
-      //       <button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button>
-      //       {/* <Forecast />
-      //       <Chat /> */}
-      //   </main>
-      // </div>
     );
   }
 }
