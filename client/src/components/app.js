@@ -1,31 +1,55 @@
 import React, {Component} from 'react';
-import Forecast from './forecast';
-import Header from './header';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import axios from "axios";
+// Import our routes for the react router
+import Home from './Home';
+import Header from './Header';
+import SeaBright from './SeaBright';
+import Pipeline from './Pipeline';
+import NewPort from './NewPort';
+import Laguana from './Laguana';
+import OceanCity from './OceanCity';
 
+// import Forecast from './Forecast';
+// import Chat from './Chat';
 
 // import logo from '../logo.svg';
 import '../css/App.css';
+import '../css/index.css';
 
+
+{/* <Route
+  path='/test'
+  render={(props) => <App {...props} loc={1} />}
+/> */}
+
+var locationCode = "0001";
 
 class App extends Component {
 
   customOnClick = function(){
-    fetch("/getMe");
+    axios.get("/api/getMe").then(response => {
+      console.log(response.data);
+    }).catch(error => {
+      console.log(error);
+    })
   }
 
   render(){
     return (
-      <div>
-        <main>
-            <div>
-                <h1>Test Title from Components/App.js</h1>
-                <button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button>
-            </div>
-            <div>
-                <Header />
-            </div>
-        </main>
-      </div>
+      <Router>
+        <Header/>
+        <button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route exact path="/seabright" component={SeaBright}/>
+          <Route exact path="/pipeline" component={Pipeline}/>
+          <Route exact path="/newport" component={NewPort}/>
+          <Route exact path="/laguana" component={Laguana}/>
+          <Route exact path="/oceancity" component={OceanCity}/>
+        </Switch>
+      </Router>
+      
     );
   }
 }
