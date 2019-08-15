@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import '../css/index.css'
-import io from 'socket.io-client';
+
+import Chat from './Chat';
 
 const url = "http://localhost:3000/pipeline"
 
@@ -9,19 +10,17 @@ class Pipeline extends Component {
         super(props);
     }
 
-    componentDidMount() {
-        let socket = io(url);
-        socket.on("connection", () => {
-            console.log("Connected to server");
-        })
-    }
-
     render() {
         return (
-            <div>
-                <h1>PIPELINE</h1> 
-                <p>Hello Friends, this is Pipline :)</p>
+            <div className="container">
+                <div>
+                    <h1>PIPELINE</h1> 
+                    <p>Hello Friends, this is Pipline :)</p>
+                </div>
+                <Chat url={url}/>
             </div>
+
+            
         );
     }
 }

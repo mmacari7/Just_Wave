@@ -1,20 +1,14 @@
 import React, {Component} from "react";
 import '../css/index.css'
-import io from 'socket.io-client';
-// import {ThemeProvider} from '@livechat/ui-kit';
+
+import Chat from './Chat';
 
 const url = "http://localhost:3000/seabright"
 
 class SeaBright extends Component {
     constructor(props) {
         super(props);
-    }
 
-    componentDidMount() {
-        let socket = io(url);
-        socket.on("connection", () => {
-            console.log("Connected to server");
-        })
     }
 
     render() {
@@ -25,15 +19,9 @@ class SeaBright extends Component {
                     <p>Hello Friends, this is Sea Bright :)</p>
                 </div>
 
-                <form>
-                    <div className='form-group'>
-                        <label htmlFor="username-input">User Name</label>
-                        <input type="text" className="form-control" required/>
-                    </div>
-                </form>
+                <Chat url={url}/>
 
-
-
+                
             </div>
         );
     }
