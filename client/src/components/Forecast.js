@@ -95,9 +95,16 @@ class Forecast extends Component {
         //     }
     }
 
+
+    // ocean city, md -> 4364312
+    // newport beach, ca -> 5376890
+    // pipeline, hi -> 5855420
+    // laguna beach, ca -> 4483525
+    // sea bright, nj -> 5104493
+
     async componentDidMount() {
-        try {
-            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=5104493&appid=36fd2ffa1c54bea102544e13a622e3a5');
+        try {                        // !!!!! the location ids for the places we want don't work but random 4 digit ids work -- not sure why.
+            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=4364&appid=36fd2ffa1c54bea102544e13a622e3a5');
             if (!response.ok) {
                 throw Error(response.statusText);
             }
@@ -116,43 +123,20 @@ class Forecast extends Component {
             console.log(error);
         }
 
-		// .then(res => res.json())
-		// .then(data => {
-		// 	if(this.state.data.data.cod === '404') {
-		// 		this.setState({
-		// 			isLoading: false,
-		// 			cityNotFound: '404'
-		// 		})
-		// 	} else {
-		// 	   // Determine weather icon
-		// 	//    let weatherId = data.data.weather[0].id;
+            // Determine weather icon
+        //    let weatherId = data.data.weather[0].id;
 
-		// 	//    if(weatherId <= 232) {
-		// 	//         this.setState({ weatherIcon: ThunderStormIcon })
-		// 	//    } else if(weatherId >= 300 && weatherId <= 531) {
-		// 	//         this.setState({ weatherIcon: RainIcon });
-		// 	//    } else if(weatherId >= 600 && weatherId <= 622 ) {
-		// 	//         this.setState({ weatherIcon: SnowIcon });
-		// 	//    } else if(weatherId === 800) {
-		// 	//         this.setState({ weatherIcon: ClearIcon });
-		// 	//    } else if(weatherId >= 801 && weatherId <= 804) {
-		// 	//         this.setState({ weatherIcon: CloudsIcon });
-		// 	//    }
-		// 	     this.setState({
-		// 	        isLoading: false,
-		// 	        currentTemp: Math.round(data.data.main.temp) + '°',
-		// 	        humidity: data.data.main.humidity + '%',
-		// 	        wind: Math.round(data.data.wind.speed) + ' mph',
-		// 	        windDirection: data.data.wind.deg,
-		// 	        currentCondition: data.data.weather[0].main,
-		// 	        currentConditionDescription: data.data.weather[0].description,
-		// 	        cityName: data.data.name
-		// 	     });
-		// 	}
-	
-		// .catch(err => {
-		//    console.log(err);
-		// })	
+        //    if(weatherId <= 232) {
+        //         this.setState({ weatherIcon: ThunderStormIcon })
+        //    } else if(weatherId >= 300 && weatherId <= 531) {
+        //         this.setState({ weatherIcon: RainIcon });
+        //    } else if(weatherId >= 600 && weatherId <= 622 ) {
+        //         this.setState({ weatherIcon: SnowIcon });
+        //    } else if(weatherId === 800) {
+        //         this.setState({ weatherIcon: ClearIcon });
+        //    } else if(weatherId >= 801 && weatherId <= 804) {
+        //         this.setState({ weatherIcon: CloudsIcon });
+        //    }
     }
     
 
