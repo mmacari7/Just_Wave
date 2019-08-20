@@ -4,7 +4,7 @@
   "description": "Application that provides wave information to user in addition to live chat",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "start": "concurrently \"npm run client\" \"npm run server\"",
     "client": "webpack-dev-server --mode development --open --hot",
     "server": "node server.js",
     "build": "webpack --mode production",
