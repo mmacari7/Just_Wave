@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import '../css/index.css'
 import io from 'socket.io-client';
-import axios from "axios";
 
 class Chat extends Component {
     constructor(props) {
@@ -12,12 +11,12 @@ class Chat extends Component {
             url: this.props.url, 
             socket: undefined,
             usernameDisabled: false,
-            chatDisabled: true
+            chatDisabled: false
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
+        this.enableChat = this.enableChat.bind(this);
     }
 
     componentDidMount() {
@@ -38,6 +37,11 @@ class Chat extends Component {
         this.setState({username: e.target.value})
     }
 
+    enableChat(e){
+        this.setState({chatDisabled: false})
+        console.log(this.state.chatDisabled);
+    }
+
     render() {
         return (
             <div className="chat-container"> 
@@ -47,9 +51,8 @@ class Chat extends Component {
                     <div className='form-group'>
                         <label htmlFor="username-input">User Name</label>
                         <input type="text" onChange={this.handleChange} className="form-control" disabled={this.state.usernameDisabled} required/>
-                        <button type="submit" disabled={this.state.usernameDisabled} className="btn btn-primary">Enter</button>
+                        <button type="submit" onChange={this.enableChat} disabled={this.state.usernameDisabled} className="btn btn-primary">Enter</button>
                     </div>
-
                 </form>
 
                 <div className="container">

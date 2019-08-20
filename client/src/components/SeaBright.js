@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import '../css/index.css'
 
 import Chat from './Chat';
+import Forecast from './Forecast';
 
 const url = "http://localhost:3000/seabright"
 
@@ -18,10 +19,8 @@ class SeaBright extends Component {
                     <h1>SEA BRIGHT</h1>
                     <p>Hello Friends, this is Sea Bright :)</p>
                 </div>
-
+                <Forecast url={url}/>
                 <Chat url={url}/>
-
-                
             </div>
         );
     }

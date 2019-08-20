@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-const weather = require('../../../worker/weather');
+// const weather = require('../../../worker/weather');
 
 import '../css/index.css'
 
@@ -51,30 +51,31 @@ class Forecast extends Component {
         super(props);
 
         this.state = ({
-            isLoading: true,
-            currentTemp: '',
-            humidity: '',
-            wind: '',
-            windDirection: '',
-            currentCondition: '',
-            currentConditionDescription: '',
-            weatherIcon: '',
-            cityName: '',
-            cityNotFound: ''
+            // isLoading: true,
+            // currentTemp: '',
+            // humidity: '',
+            // wind: '',
+            // windDirection: '',
+            // currentCondition: '',
+            // currentConditionDescription: '',
+            // weatherIcon: '',
+            // cityName: '',
+            // cityNotFound: '',
+            url: this.props.url
         })
     }
 
     async componentDidMount() {
-        try {
-            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=5024&appid=36fd2ffa1c54bea102544e13a622e3a5');
-            if (!response.ok) {
-                throw Error(response.statusText);
-            }
-            const json = await response.json();
-            this.setState({ data: json });
-        } catch (error) {
-            console.log(error);
-        }
+        // try {
+        //     const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=5024&appid=36fd2ffa1c54bea102544e13a622e3a5');
+        //     if (!response.ok) {
+        //         throw Error(response.statusText);
+        //     }
+        //     const json = await response.json();
+        //     this.setState({ data: json });
+        // } catch (error) {
+        //     console.log(error);
+        // }
 
 		// .then(res => res.json())
 		// .then(data => {
@@ -113,65 +114,65 @@ class Forecast extends Component {
 		// .catch(err => {
 		//    console.log(err);
 		// })	
-      }
+    }
     
 
     render() {
 
-        if (!this.state.data) {
-            return <div />
-        }
+        // if (!this.state.data) {
+        //     return <div />
+        // }
  
-        const WeatherCardError = (
-            <div className='weatherCardContainer'>
-              <div className='weatherCardError'>
-                 {/* <img src={NoLocationFound} alt='no location found'/> */}
-                    <p> Whoa! Looks like there was an error with your zipcode.</p>
-                 {/* <Link to='/'><button>Try Again</button></Link> */}
-              </div>
-            </div>
-         )
+        // const WeatherCardError = (
+        //     <div className='weatherCardContainer'>
+        //       <div className='weatherCardError'>
+        //          {/* <img src={NoLocationFound} alt='no location found'/> */}
+        //             <p> Whoa! Looks like there was an error with your zipcode.</p>
+        //          {/* <Link to='/'><button>Try Again</button></Link> */}
+        //       </div>
+        //     </div>
+        //  )
  
-         const WeatherConditions = (
-             this.state.cityNotFound == 404 ? <div> { WeatherCardError } </div> :
-             <div>
-                <div className='homeBtn'>
-                      {/* <Link to='/'><button>Home</button></Link> */}
-                </div>
-                <div className='weatherCardContainer'>
-                   <div className='weatherCard'>
-                 {/* <img src={this.state.weatherIcon} alt='Weather icon'/> */}
-                    <div className='conditionsOverview'>
-                       <p>{this.state.currentTemp}</p>
-                       <p>{this.state.currentConditionDescription}</p>
-                    </div>
-                    <div className='conditionDetails'>
-                       <p>Humidity: {this.state.humidity} </p>
-                       <p>Wind Speed: {this.state.wind} </p>
-                    </div>
-                   </div> 
-                  <h4> Location | {this.state.cityName} </h4>
-                </div>
-             </div>
-         )
+        //  const WeatherConditions = (
+        //      this.state.cityNotFound == 404 ? <div> { WeatherCardError } </div> :
+        //      <div>
+        //         <div className='homeBtn'>
+        //               {/* <Link to='/'><button>Home</button></Link> */}
+        //         </div>
+        //         <div className='weatherCardContainer'>
+        //            <div className='weatherCard'>
+        //          {/* <img src={this.state.weatherIcon} alt='Weather icon'/> */}
+        //             <div className='conditionsOverview'>
+        //                <p>{this.state.currentTemp}</p>
+        //                <p>{this.state.currentConditionDescription}</p>
+        //             </div>
+        //             <div className='conditionDetails'>
+        //                <p>Humidity: {this.state.humidity} </p>
+        //                <p>Wind Speed: {this.state.wind} </p>
+        //             </div>
+        //            </div> 
+        //           <h4> Location | {this.state.cityName} </h4>
+        //         </div>
+        //      </div>
+        //  )
  
-         const LoadingDisplay = (
-            <div className='loading'>
-               {/* <img className='loadingIcon' src={LoadingIcon} alt='loading icon'/> */}
-               LOADING
-            </div>
-         )
+        //  const LoadingDisplay = (
+        //     <div className='loading'>
+        //        {/* <img className='loadingIcon' src={LoadingIcon} alt='loading icon'/> */}
+        //        LOADING
+        //     </div>
+        //  )
 
-         const CurrentWeatherCard = ( 
-            this.state.currentTemp === true ? <div> {LoadingDisplay} </div> : <div> {WeatherConditions} </div>
-         )
+        //  const CurrentWeatherCard = ( 
+        //     this.state.currentTemp === true ? <div> {LoadingDisplay} </div> : <div> {WeatherConditions} </div>
+        //  )
 
         return (
             <div className="container forecast-container">
                 <h2 className="loc-heading">Beach Name, State</h2>
                 <div className="container">
                     <div>
-                    { CurrentWeatherCard }
+                    {/* { CurrentWeatherCard } */}
                     {/* { this.state.currentTemp } */}
                     </div>
                     <div className="row">

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import '../css/index.css'
 
 import Chat from './Chat';
+import Forecast from './Forecast';
 
 const url = "http://localhost:3000/newport"
 
@@ -17,6 +18,7 @@ class NewPort extends Component {
                     <h1>NEWPORT</h1>
                     <p>Hello Friends, this is New Port :)</p>
                 </div>
+                <Forecast url={url}/>
                 <Chat url={url}/>
             </div>
         );
