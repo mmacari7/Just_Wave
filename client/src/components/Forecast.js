@@ -52,7 +52,7 @@ class Forecast extends Component {
 
         this.state = ({
             // isLoading: true,
-            // currentTemp: '',
+            currentTemp: '79F',
             // humidity: '',
             // wind: '',
             // windDirection: '',
@@ -61,55 +61,94 @@ class Forecast extends Component {
             // weatherIcon: '',
             // cityName: '',
             // cityNotFound: '',
-            url: this.props.url
+            url: this.props.url,
+            data: {},
+            temp: '',
+            pressure: ''
         })
+
+        // OPENWEATHER API Response Schema Example
+        // {
+        //     "coord": {"lon":138.6,"lat":-34.93},
+        //     "weather":[
+        //         {"id":803,
+        //         "main":"Clouds",
+        //         "description":"broken clouds",
+        //         "icon":"04n"}
+        //     ],
+        //     "base":"stations",
+        //     "main":{
+        //         "temp":284.51,
+        //         "pressure":1027,
+        //         "humidity":87,
+        //         "temp_min":282.59,
+        //         "temp_max":285.93},
+        //         "wind":{"speed":5.46,"deg":260.351},
+        //         "rain":{"3h":0.063},
+        //         "clouds":{"all":75},
+        //         "dt":1566319899,
+        //         "sys":{"type":3,"id":2001119,"message":0.0067,"country":"AU","sunrise":1566336004,"sunset":1566375490},
+        //         "timezone":34200,
+        //         "id":2078025,
+        //         "name":"Adelaide",
+        //         "cod":200
+        //     }
     }
 
     async componentDidMount() {
-        // try {
-        //     const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=5024&appid=36fd2ffa1c54bea102544e13a622e3a5');
-        //     if (!response.ok) {
-        //         throw Error(response.statusText);
-        //     }
-        //     const json = await response.json();
-        //     this.setState({ data: json });
-        // } catch (error) {
-        //     console.log(error);
-        // }
+        try {
+            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=5104493&appid=36fd2ffa1c54bea102544e13a622e3a5');
+            if (!response.ok) {
+                throw Error(response.statusText);
+            }
+            const json = await response.json();
+            this.setState(
+                { 
+                    data: json, 
+                    overview: json.weather.main,
+                    temp: json.main.temp, 
+                    pressure: json.main.pressure
+                    // windspeed: json.main.wind.speed,
+                    // winddirect: json.main.wind.deg,
+                    // cloudcover: json.main.clouds.all,
+                });
+        } catch (error) {
+            console.log(error);
+        }
 
 		// .then(res => res.json())
 		// .then(data => {
-			// if(this.state.data.data.cod === '404') {
-			// 	this.setState({
-			// 		isLoading: false,
-			// 		cityNotFound: '404'
-			// 	})
-			// } else {
-			//    // Determine weather icon
-			// //    let weatherId = data.data.weather[0].id;
+		// 	if(this.state.data.data.cod === '404') {
+		// 		this.setState({
+		// 			isLoading: false,
+		// 			cityNotFound: '404'
+		// 		})
+		// 	} else {
+		// 	   // Determine weather icon
+		// 	//    let weatherId = data.data.weather[0].id;
 
-			// //    if(weatherId <= 232) {
-			// //         this.setState({ weatherIcon: ThunderStormIcon })
-			// //    } else if(weatherId >= 300 && weatherId <= 531) {
-			// //         this.setState({ weatherIcon: RainIcon });
-			// //    } else if(weatherId >= 600 && weatherId <= 622 ) {
-			// //         this.setState({ weatherIcon: SnowIcon });
-			// //    } else if(weatherId === 800) {
-			// //         this.setState({ weatherIcon: ClearIcon });
-			// //    } else if(weatherId >= 801 && weatherId <= 804) {
-			// //         this.setState({ weatherIcon: CloudsIcon });
-			// //    }
-			//      this.setState({
-			//         isLoading: false,
-			//         currentTemp: Math.round(data.data.main.temp) + '°',
-			//         humidity: data.data.main.humidity + '%',
-			//         wind: Math.round(data.data.wind.speed) + ' mph',
-			//         windDirection: data.data.wind.deg,
-			//         currentCondition: data.data.weather[0].main,
-			//         currentConditionDescription: data.data.weather[0].description,
-			//         cityName: data.data.name
-			//      });
-			// }
+		// 	//    if(weatherId <= 232) {
+		// 	//         this.setState({ weatherIcon: ThunderStormIcon })
+		// 	//    } else if(weatherId >= 300 && weatherId <= 531) {
+		// 	//         this.setState({ weatherIcon: RainIcon });
+		// 	//    } else if(weatherId >= 600 && weatherId <= 622 ) {
+		// 	//         this.setState({ weatherIcon: SnowIcon });
+		// 	//    } else if(weatherId === 800) {
+		// 	//         this.setState({ weatherIcon: ClearIcon });
+		// 	//    } else if(weatherId >= 801 && weatherId <= 804) {
+		// 	//         this.setState({ weatherIcon: CloudsIcon });
+		// 	//    }
+		// 	     this.setState({
+		// 	        isLoading: false,
+		// 	        currentTemp: Math.round(data.data.main.temp) + '°',
+		// 	        humidity: data.data.main.humidity + '%',
+		// 	        wind: Math.round(data.data.wind.speed) + ' mph',
+		// 	        windDirection: data.data.wind.deg,
+		// 	        currentCondition: data.data.weather[0].main,
+		// 	        currentConditionDescription: data.data.weather[0].description,
+		// 	        cityName: data.data.name
+		// 	     });
+		// 	}
 	
 		// .catch(err => {
 		//    console.log(err);
@@ -119,9 +158,9 @@ class Forecast extends Component {
 
     render() {
 
-        // if (!this.state.data) {
-        //     return <div />
-        // }
+        if (!this.state.data) {
+            return <div />
+        }
  
         // const WeatherCardError = (
         //     <div className='weatherCardContainer'>
@@ -169,16 +208,18 @@ class Forecast extends Component {
 
         return (
             <div className="container forecast-container">
-                <h2 className="loc-heading">Beach Name, State</h2>
                 <div className="container">
                     <div>
                     {/* { CurrentWeatherCard } */}
-                    {/* { this.state.currentTemp } */}
+                    { this.state.data.base }
+                    
+                    { this.state.pressure }
                     </div>
                     <div className="row">
                         <div className="col-sm fc-item">
                             <div className="row">
                                 <img src="..." alt="img" width="200" height="150"/>
+                                { this.state.temp }
                             </div>
                             <div className="row">
                                 <p>Temperature</p>
