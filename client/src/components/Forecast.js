@@ -50,7 +50,27 @@ class Forecast extends Component {
     constructor(props) {
         super(props);
 
+        let cityId = '';
+        if (props.url == 'http://localhost:3000/laguana') {
+            cityId = '4483525';
+        }
+        else if (props.url == 'http://localhost:3000/seabright') {
+            cityId = '5104493';
+        }
+        else if (props.url == 'http://localhost:3000/newport') {
+            cityId = '5376890';
+        }
+        else if (props.url == 'http://localhost:3000/oceancity') {
+            cityId = '4364312';
+        }
+        else if (props.url == 'http://localhost:3000/pipeline') {
+            cityId = '5855420';
+        }
+        else {
+            cityId = '0'
+        }
         this.state = ({
+            
             // isLoading: true,
             currentTemp: '79F',
             // humidity: '',
@@ -61,7 +81,7 @@ class Forecast extends Component {
             // weatherIcon: '',
             // cityName: '',
             // cityNotFound: '',
-            url: this.props.url,
+            cityId: cityId,
             data: {},
             overview: '',
             temp: '',
@@ -107,9 +127,9 @@ class Forecast extends Component {
     // sea bright, nj -> 5104493
 
     async componentDidMount() {
-        try {                        // !!!!! the location ids for the places we want don't work but random 4 digit ids work -- not sure why. 
-                                     // .../weather?q=[ID]...
-            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=5132&appid=36fd2ffa1c54bea102544e13a622e3a5');
+        try {                                                           // .../weather?id=[ID]...
+            let dataUrl = 'http://api.openweathermap.org/data/2.5/weather?id=' + this.state.cityId + '&appid=36fd2ffa1c54bea102544e13a622e3a5';
+            const response = await fetch(dataUrl);
             if (!response.ok) {
                 throw Error(response.statusText);
             }
@@ -154,7 +174,7 @@ class Forecast extends Component {
             <div className="container forecast-container">
                 <div className="container">
                     <div>
-
+                    <p>City ID: { this.state.cityId } </p>
                     <p>Overview: { this.state.overview } </p>
                     <p>Current Temperature: { this.state.temp } Kelvin</p>
                     <p>Pressure: { this.state.pressure }</p>
