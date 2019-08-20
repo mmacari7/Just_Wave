@@ -63,8 +63,11 @@ class Forecast extends Component {
             // cityNotFound: '',
             url: this.props.url,
             data: {},
+            overview: '',
             temp: '',
-            pressure: ''
+            pressure: '',
+            wind: '',
+            cloudcover: ''
         })
 
         // OPENWEATHER API Response Schema Example
@@ -96,6 +99,7 @@ class Forecast extends Component {
     }
 
 
+    // location ids 
     // ocean city, md -> 4364312
     // newport beach, ca -> 5376890
     // pipeline, hi -> 5855420
@@ -103,8 +107,9 @@ class Forecast extends Component {
     // sea bright, nj -> 5104493
 
     async componentDidMount() {
-        try {                        // !!!!! the location ids for the places we want don't work but random 4 digit ids work -- not sure why.
-            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=4364&appid=36fd2ffa1c54bea102544e13a622e3a5');
+        try {                        // !!!!! the location ids for the places we want don't work but random 4 digit ids work -- not sure why. 
+                                     // .../weather?q=[ID]...
+            const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=5132&appid=36fd2ffa1c54bea102544e13a622e3a5');
             if (!response.ok) {
                 throw Error(response.statusText);
             }
@@ -112,12 +117,11 @@ class Forecast extends Component {
             this.setState(
                 { 
                     data: json, 
-                    overview: json.weather.main,
-                    temp: json.main.temp, 
+                    overview: json.weather[0].main,
+                    temp: json.main.temp,
                     pressure: json.main.pressure
-                    // windspeed: json.main.wind.speed,
-                    // winddirect: json.main.wind.deg,
-                    // cloudcover: json.main.clouds.all,
+                    // wind: json.main.wind.speed,
+                    // cloudcover: json.main.clouds
                 });
         } catch (error) {
             console.log(error);
@@ -146,64 +150,24 @@ class Forecast extends Component {
             return <div />
         }
  
-        // const WeatherCardError = (
-        //     <div className='weatherCardContainer'>
-        //       <div className='weatherCardError'>
-        //          {/* <img src={NoLocationFound} alt='no location found'/> */}
-        //             <p> Whoa! Looks like there was an error with your zipcode.</p>
-        //          {/* <Link to='/'><button>Try Again</button></Link> */}
-        //       </div>
-        //     </div>
-        //  )
- 
-        //  const WeatherConditions = (
-        //      this.state.cityNotFound == 404 ? <div> { WeatherCardError } </div> :
-        //      <div>
-        //         <div className='homeBtn'>
-        //               {/* <Link to='/'><button>Home</button></Link> */}
-        //         </div>
-        //         <div className='weatherCardContainer'>
-        //            <div className='weatherCard'>
-        //          {/* <img src={this.state.weatherIcon} alt='Weather icon'/> */}
-        //             <div className='conditionsOverview'>
-        //                <p>{this.state.currentTemp}</p>
-        //                <p>{this.state.currentConditionDescription}</p>
-        //             </div>
-        //             <div className='conditionDetails'>
-        //                <p>Humidity: {this.state.humidity} </p>
-        //                <p>Wind Speed: {this.state.wind} </p>
-        //             </div>
-        //            </div> 
-        //           <h4> Location | {this.state.cityName} </h4>
-        //         </div>
-        //      </div>
-        //  )
- 
-        //  const LoadingDisplay = (
-        //     <div className='loading'>
-        //        {/* <img className='loadingIcon' src={LoadingIcon} alt='loading icon'/> */}
-        //        LOADING
-        //     </div>
-        //  )
-
-        //  const CurrentWeatherCard = ( 
-        //     this.state.currentTemp === true ? <div> {LoadingDisplay} </div> : <div> {WeatherConditions} </div>
-        //  )
-
         return (
             <div className="container forecast-container">
                 <div className="container">
                     <div>
-                    {/* { CurrentWeatherCard } */}
-                    { this.state.data.base }
-                    
-                    { this.state.pressure }
+
+                    <p>Overview: { this.state.overview } </p>
+                    <p>Current Temperature: { this.state.temp } Kelvin</p>
+                    <p>Pressure: { this.state.pressure }</p>
+                    {/* Cloud Cover: { this.state.cloudcover.all } */}
+                    {/* Wind Speed: { this.state.wind.speed } */}
+                    {/* Wind Direction: { this.state.wind.direction } */}
+
+                   
                     </div>
                     <div className="row">
                         <div className="col-sm fc-item">
                             <div className="row">
                                 <img src="..." alt="img" width="200" height="150"/>
-                                { this.state.temp }
                             </div>
                             <div className="row">
                                 <p>Temperature</p>
