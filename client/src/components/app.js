@@ -27,31 +27,31 @@ var locationCode = "0001";
 
 class App extends Component {
 
-  customOnClick = function(){
-    axios.get("/api/getMe").then(response => {
-      console.log(response.data);
-    }).catch(error => {
-      console.log(error);
-    })
-  }
+	customOnClick = function () {
+		axios.get("/api/getMe").then(response => {
+			console.log(response.data);
+		}).catch(error => {
+			console.log(error);
+		})
+	}
 
-  render(){
-    return (
-      <Router>
-        <Header/>
-        <button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button>
-        <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/seabright" component={SeaBright}/>
-          <Route exact path="/pipeline" component={Pipeline}/>
-          <Route exact path="/newport" component={NewPort}/>
-          <Route exact path="/laguana" component={Laguana}/>
-          <Route exact path="/oceancity" component={OceanCity}/>
-        </Switch>
-      </Router>
-      
-    );
-  }
+	render() {
+		return (
+			<Router>
+				<Header />
+				<button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button>
+				{/* <Switch> */}
+					<Route exact path="/" component={Home} />
+					<Route path="/seabright" component={SeaBright} />
+					<Route path="/pipeline" component={Pipeline} />
+					<Route path="/newport" component={NewPort} />
+					<Route path="/laguana" component={Laguana} />
+					<Route path="/oceancity" component={OceanCity} />
+				{/* </Switch> */}
+			</Router>
+
+		);
+	}
 }
 
 export default App;

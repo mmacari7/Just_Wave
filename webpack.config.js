@@ -39,40 +39,12 @@ const config = {
         port: 5000,
         open: true,
         historyApiFallback: true,
-        // proxy: {
-        //     "/api/**": {
-        //         target: "http://localhost:3000",
-        //         secure: false,
-        //         changeOrigin: true
-        //     } 
-        // }
-
-        // proxy: {
-        //     'api' : {
-        //         target: 'http://localhost:3000'
-        //     }
-        // }
-
-        
-        // This one works, not entirely sure why vs the others
-        
-        // proxy: {
-        //     '^/api/*': {
-        //         target: 'http://localhost:3000/api/',
-        //         secure: false
-        //     }
-        // }
 
         // Works for all calls to /api/ reroutes to localhost:3000/api
         proxy: [{
             context: ['/api'],
             target: "http://localhost:3000"
         }]
-        
-        // proxy: {
-        //     context: () => true,
-        //     target: "http://localhost:3000"
-        // }
 
     },
     plugins: [
