@@ -26,6 +26,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
+    "react-scroll": "^1.7.13",
     "redis": "^2.8.0",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0"

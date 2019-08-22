@@ -23,30 +23,99 @@ const newport = io.of("/newport");
 const laguana = io.of("/laguana");
 const oceancity = io.of("/oceancity")
 
-io.on("connection", (socket) => {
-    console.log("Someone connected");
-})
-
+// Seabright beach socket connection
 seabright.on("connection", (socket) => {
     console.log("Someone connected to seabright socket");
+
+    socket.on('server-message', (obj)=> {
+        console.log("Received message from client");
+
+        let username = obj.username;
+        let message = obj.message;
+        let fromClient = true;
+
+        console.log(username);
+        console.log(message);
+
+        socket.broadcast.emit('client-message', {fromClient, username, message});
+
+    })
+
 })
 
-pipline.on("connection", (scoket)=> {
+pipline.on("connection", (socket)=> {
     console.log("Someone connected to pipeline socket");
+
+    socket.on('server-message', (obj)=> {
+        console.log("Received message from client");
+
+        let username = obj.username;
+        let message = obj.message;
+
+        console.log(username);
+        console.log(message);
+
+        socket.broadcast.emit('client-message', {username, message});
+
+    })
+
 })
 
-newport.on("connection", (scoket)=> {
+newport.on("connection", (socket)=> {
     console.log("Someone connected to newport socket");
+
+    socket.on('server-message', (obj)=> {
+        console.log("Received message from client");
+
+        let username = obj.username;
+        let message = obj.message;
+
+        console.log(username);
+        console.log(message);
+
+        socket.broadcast.emit('client-message', {username, message});
+
+    })
+
 })
 
-laguana.on("connection", (scoket)=> {
+laguana.on("connection", (socket)=> {
     console.log("Someone connected to laguana socket");
+
+    socket.on('server-message', (obj)=> {
+        console.log("Received message from client");
+
+        let username = obj.username;
+        let message = obj.message;
+
+        console.log(username);
+        console.log(message);
+
+        socket.broadcast.emit('client-message', {username, message});
+
+    })
+
 })
 
-oceancity.on("connection", (scoket)=> {
+oceancity.on("connection", (socket)=> {
     console.log("Someone connected to ocean city socket");
+
+    socket.on('server-message', (obj)=> {
+        console.log("Received message from client");
+
+        let username = obj.username;
+        let message = obj.message;
+
+        console.log(username);
+        console.log(message);
+
+        socket.broadcast.emit('client-message', {username, message});
+
+    })
+
 })
 
+// Sets up our server on localhost 3000
 http.listen(3000, () => {
     console.log("Server started, listening on port 3000");
 });

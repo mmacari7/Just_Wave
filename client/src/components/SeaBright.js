@@ -19,7 +19,7 @@ class SeaBright extends Component {
                     <h1>SEA BRIGHT</h1>
                     <p>Hello Friends, this is Sea Bright :)</p>
                 </div>
-                <Forecast url={url}/>
+                {/* <Forecast url={url}/> */}
                 <Chat url={url}/>
             </div>
         );

@@ -64,18 +64,33 @@ code {
   overflow: auto;
 }
 
-.message-container {
-  width: 90%;
+.message-receive-container {
+  float: left;
+  width: 60%;
   margin: 10px;
   border-bottom: 1px solid #ECE9E9;
-  text-align: left;
 }
 
-.message-text {
+.message-sent-container {
+  float: right;
+  width: 60%;
+  margin: 10px;
+  border-bottom: 1px solid #ECE9E9;
+}
+
+.message-sent-text {
+  border-radius: 10px;
+  padding: 3px;
+  color: black;
+  background-color: lightblue;
+}
+
+.message-receive-text {
   border-radius: 10px;
   padding: 3px;
   padding-left: 8px;
-  color: white;
+  color: black;
+  background-color: lightgray;
 }
 
 .message-sender {
