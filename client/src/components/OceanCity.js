@@ -16,8 +16,7 @@ class OceanCity extends Component {
         return (
             <div className="container">
                 <div>
-                    <h1>OCEAN CITY</h1>
-                    <p>Hello Friends, this is Ocean City :)</p>
+                    <h1 className="centered">Ocean City, MD</h1>
                 </div>
                 <Forecast url={url}/>
                 <Chat url={url} beachKey={beachKey}/>

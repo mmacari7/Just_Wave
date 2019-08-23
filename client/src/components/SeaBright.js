@@ -16,8 +16,7 @@ class SeaBright extends Component {
         return (
             <div className='container'>
                 <div>
-                    <h1>SEA BRIGHT</h1>
-                    <p>Hello Friends, this is Sea Bright :)</p>
+                    <h1 className="centered">Sea Bright, NJ</h1>
                 </div>
                 {/* <Forecast url={url}/> */}
                 <Chat url={url} beachKey={beachKey}/>

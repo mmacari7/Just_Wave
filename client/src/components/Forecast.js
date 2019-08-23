@@ -1,50 +1,5 @@
 import React, {Component} from "react";
-// const weather = require('../../../worker/weather');
-
 import '../css/index.css'
-
-//Assets
-// import ThunderStormIcon from './assets/weather_icons/01W.svg';
-// import RainIcon from './assets/weather_icons/02W.svg';
-// import SnowIcon from './assets/weather_icons/03W.svg';
-// import ClearIcon from './assets/weather_icons/04W-DAY.svg';
-// import CloudsIcon from './assets/weather_icons/05W.svg';
-// import NoLocationFound from './assets/no-location.svg';
-// import LoadingIcon from './assets/loading.svg';
-
-// const bodyParser = require('body-parser');
-// const express = require('express');
-
-// const nrp = require('../../../redis/nrp-sender-shim');
-// const redisConnection = require('../../../redis/redis-connection');
-
-// const app = express();
-// app.use(bodyParser.json());
-
-// func getWeather(), async {
-//     try {
-//         console.log("GET server")
-//         let response = await nrp.sendMessage({
-//             redis: redisConnection,
-//             eventName: 'get',
-//             data: { id: req.params.id },
-//             expectsResponse: true
-//         });
-//         console.log(response)
-//         res.json(response);
-        
-//     } 
-//     catch (e) {
-//         if (e.errorCode) {
-//             res.status(e.errorCode).json({ error: e.message });
-//             console.log("server" + e)
-//         } 
-//         else {
-//             res.status(504).json({ error: e.message });
-//             console.log("server" + e)
-//         }
-//     }
-// });
 
 class Forecast extends Component {
     constructor(props) {
@@ -69,25 +24,17 @@ class Forecast extends Component {
         else {
             cityId = '0'
         }
+
         this.state = ({
-            
-            // isLoading: true,
-            currentTemp: '79F',
-            // humidity: '',
-            // wind: '',
-            // windDirection: '',
-            // currentCondition: '',
-            // currentConditionDescription: '',
-            // weatherIcon: '',
-            // cityName: '',
-            // cityNotFound: '',
             cityId: cityId,
             data: {},
             overview: '',
             temp: '',
             pressure: '',
             wind: '',
-            cloudcover: ''
+            cloudcover: '',
+            high: '',
+            low: ''
         })
 
         // OPENWEATHER API Response Schema Example
@@ -118,14 +65,6 @@ class Forecast extends Component {
         //     }
     }
 
-
-    // location ids 
-    // ocean city, md -> 4364312
-    // newport beach, ca -> 5376890
-    // pipeline, hi -> 5855420
-    // laguna beach, ca -> 4483525
-    // sea bright, nj -> 5104493
-
     async componentDidMount() {
         try {                                                           // .../weather?id=[ID]...
             let dataUrl = 'http://api.openweathermap.org/data/2.5/weather?id=' + this.state.cityId + '&appid=36fd2ffa1c54bea102544e13a622e3a5';
@@ -134,124 +73,42 @@ class Forecast extends Component {
                 throw Error(response.statusText);
             }
             const json = await response.json();
-            this.setState(
-                { 
-                    data: json, 
-                    overview: json.weather[0].main,
-                    temp: json.main.temp,
-                    pressure: json.main.pressure
-                    // wind: json.main.wind.speed,
-                    // cloudcover: json.main.clouds
-                });
-        } catch (error) {
+
+            this.setState({ 
+                data: json, 
+                overview: json.weather[0].main,
+                temp: json.main.temp,
+                pressure: json.main.pressure,
+                high: json.main.temp_max,
+                low: json.main.temp_min,
+                // wind: json.main.wind
+                // wind: json.main.wind.speed,
+                // cloudcover: json.main.clouds
+            });
+
+            let curTemp = parseInt((parseInt(this.state.temp) - 273) * (9/5) + 32);
+            let highTemp = parseInt((parseInt(this.state.high) - 273) * (9/5) + 32);
+            let lowTemp = parseInt((parseInt(this.state.low) - 273) * (9/5) + 32);
+            // let windSpeed = String(this.state.wind.speed)
+            this.setState({ temp: curTemp, high: highTemp, low: lowTemp })
+        } 
+        catch (error) {
             console.log(error);
         }
-
-            // Determine weather icon
-        //    let weatherId = data.data.weather[0].id;
-
-        //    if(weatherId <= 232) {
-        //         this.setState({ weatherIcon: ThunderStormIcon })
-        //    } else if(weatherId >= 300 && weatherId <= 531) {
-        //         this.setState({ weatherIcon: RainIcon });
-        //    } else if(weatherId >= 600 && weatherId <= 622 ) {
-        //         this.setState({ weatherIcon: SnowIcon });
-        //    } else if(weatherId === 800) {
-        //         this.setState({ weatherIcon: ClearIcon });
-        //    } else if(weatherId >= 801 && weatherId <= 804) {
-        //         this.setState({ weatherIcon: CloudsIcon });
-        //    }
     }
     
-
     render() {
-
-        if (!this.state.data) {
-            return <div />
-        }
- 
         return (
             <div className="container forecast-container">
                 <div className="container">
                     <div>
-                    <p>City ID: { this.state.cityId } </p>
-                    <p>Overview: { this.state.overview } </p>
-                    <p>Current Temperature: { this.state.temp } Kelvin</p>
-                    <p>Pressure: { this.state.pressure }</p>
-                    {/* Cloud Cover: { this.state.cloudcover.all } */}
-                    {/* Wind Speed: { this.state.wind.speed } */}
-                    {/* Wind Direction: { this.state.wind.direction } */}
-
-                   
-                    </div>
-                    <div className="row">
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                                <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Temperature</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                        <div className="row">
-                        <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Cloud Cover</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Chance of Precip</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Humidity</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                                <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Depth of Sea Floor</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                        <div className="row">
-                        <img src="..." alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Tides</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Human Concentration</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Breakpoints</p>
-                            </div>
-                        </div>
+                        <h3 className="centered">{ this.state.temp }&deg; F</h3>
+                        <h3 className="centered">{ this.state.overview }</h3>
+                        <p className="centered">High: { this.state.high }&deg; F &nbsp; &nbsp; &nbsp; &nbsp; Low: { this.state.low }&deg; F</p>
+                        {/* <p className="centered">Wind Speed: { this.state.wind }</p> */}
+                        {/* Cloud Cover: { this.state.cloudcover.all } */}
+                        {/* Wind Speed: { this.state.wind.speed } */}
+                        {/* Wind Direction: { this.state.wind.direction } */}
                     </div>
                 </div>
             </div>

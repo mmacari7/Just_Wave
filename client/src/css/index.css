@@ -100,12 +100,6 @@ code {
   color: #555555;
 }
 
-/* .other-msg {
-  float: left;
-  background-color: #cccccc;
-  color: #000000;
-} */
-
 .search-form {
   background-color: lightblue;
   border-radius: 0px 0px 10px 10px;
@@ -136,4 +130,10 @@ code {
   padding: 0;
   margin: 0;
   font-size: 7pt;
+}
+
+.centered {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
