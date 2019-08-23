@@ -16,11 +16,11 @@ class Header extends Component {
             </button>
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
-                    <li className="nav-item active">
-                        <a className="nav-link" href="/seabright">Sea Bright, NJ <span className="sr-only">(current)</span></a>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/seabright">Sea Bright, NJ</a>
                     </li>
-                    <li className="nav-item active">
-                        <a className="nav-link" href="/pipeline">Pipeline, HI <span className="sr-only">(current)</span></a>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/pipeline">Pipeline, HI</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="/newport">Newport Beach, CA</a>

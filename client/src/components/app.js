@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
+
 // Import our routes for the react router
 import Home from './Home';
 import Header from './Header';
@@ -10,13 +11,8 @@ import NewPort from './NewPort';
 import Laguana from './Laguana';
 import OceanCity from './OceanCity';
 
-// import Forecast from './Forecast';
-// import Chat from './Chat';
-
-// import logo from '../logo.svg';
 import '../css/App.css';
 import '../css/index.css';
-
 
 {/* <Route
   path='/test'
