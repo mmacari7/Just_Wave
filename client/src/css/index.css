@@ -126,3 +126,14 @@ code {
   width: 60%;
 }
 
+#cmes {
+  margin: 0;
+  padding: 0;
+}
+
+#dt {
+  color: gray;
+  padding: 0;
+  margin: 0;
+  font-size: 7pt;
+}

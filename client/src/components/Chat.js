@@ -2,6 +2,15 @@ import React, {Component} from "react";
 import '../css/index.css'
 import io from 'socket.io-client';
 import {animateScroll} from "react-scroll";
+import axios from "axios";
+
+Date.prototype.today = function() {
+    return((this.getDate() < 10)?"0":"") + this.getDate() + "-" + (((this.getMonth() +1) < 10)?"0":"") + (this.getMonth()+1) + "-" + this.getFullYear();
+}
+
+Date.prototype.timeNow = function () {
+    return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds() + "." + this.getMilliseconds();
+}
 
 class Chat extends Component {
     constructor(props) {
@@ -10,7 +19,8 @@ class Chat extends Component {
         // State for the component
         this.state = {
             username: undefined,
-            url: this.props.url, 
+            url: this.props.url,
+            beachKey: this.props.beachKey,
             socket: io(this.props.url),
             usernameDisabled: false,
             chatDisabled: true,
@@ -26,25 +36,22 @@ class Chat extends Component {
         this.scrollToBottom = this.scrollToBottom.bind(this);
     }
 
-    componentDidMount() {
-        // this.setState({url: this.props.url});
-        // let socket = io(this.state.url);
-        this.state.socket.on("connection", () => {
-            console.log("Connected to server");
-        })
+    async componentDidMount() {
 
+        // Load the cached conversation for socket with call to api
+        let res = await axios.get("/api/get-conversation", {params: {key: this.state.beachKey}});
+
+        // Sets the initial messages state from Redis cache on server
+        this.setState({receivedMessages: res.data.messagesForClient});
         this.scrollToBottom();
 
         // Socket message from client
         this.state.socket.on('client-message', (obj) => {
-
             // Set the state based on message from server
             this.setState(prevState => ({
-                receivedMessages: [...prevState.receivedMessages, {fromClient: obj.fromClient, username: obj.username, message: obj.message}]
+                receivedMessages: [...prevState.receivedMessages, {datetime: obj.datetime, fromClient: obj.fromClient, username: obj.username, message: obj.message}]
             }))
-
             this.scrollToBottom();
-
         })
     }
 
@@ -63,12 +70,16 @@ class Chat extends Component {
     handleSendMessage(e){
         e.preventDefault();
 
+        // Get current date and time
+        let newDate = new Date();
+        let dt = newDate.today() + " " + newDate.timeNow();
+
         // Emit message to server
-        this.state.socket.emit('server-message', {username: this.state.username, message: this.state.message})
-        
+        this.state.socket.emit('server-message', {datetime: dt, username: this.state.username, message: this.state.message})
+
         // Set self message in state
         this.setState(prevState => ({
-            receivedMessages: [...prevState.receivedMessages, {fromClient: false, username: "You", message: this.state.message}]
+            receivedMessages: [...prevState.receivedMessages, {datetime: dt, fromClient: false, username: "You", message: this.state.message}]
         }))
 
         // Change message back to empty string
@@ -103,95 +114,32 @@ class Chat extends Component {
                 <div className="container">
                     <div className="chat-box" id="c-box">
                         
-                        <div className="message-receive-container">
-                            <div className="message-receive-text">
-                                <b>John</b>
-                                <p>Example Receive Keeps going because you cant stop this because it will just keep going and going and going</p>
-                            </div>
-                        </div>
-
-                        <div className="message-sent-container">
-                            <div className="message-sent-text">
-                                <b>Donkey Kong</b>
-                                <p>Example messages coming from more messages</p> 
-                            </div>
-                        </div>
-
-                        <div className="message-receive-container">
-                            <div className="message-receive-text">
-                                <b>Username</b>
-                                <p>Example to just keep on chugging along</p>
-                            </div>
-                        </div>
-
-                        <div className="message-sent-container">
-                            <div className="message-sent-text">
-                                <b>Dragon</b>
-                                <p>Example of sen</p>
-                            </div>
-                        </div>
-
-                        
-                        <div className="message-sent-container">
-                            <div className="message-sent-text">
-                                <b>Admin</b>
-                                <p>Another example just to make sure its all working</p>
-                            </div>
-                        </div>
-
-                        <div className="message-receive-container">
-                            <div className="message-receive-text">
-                                <b>User</b>
-                                <p>Quick message</p> 
-                            </div>
-                        </div>
-                        <div className="message-receive-container">
-                            <div className="message-receive-text">
-                                <b>Taco Bunny</b>
-                                <p>Another Example</p>
-                            </div>
-                        </div>
-
-
-                        {this.state.receivedMessages.map( (el, i) => {
-                            // return(<p key={i}>{el.username} {el.message}</p>)
-                            console.log(el.fromClient);
+                        {this.state.receivedMessages.map((el, i) => {
+                            // If the message is from another
                             if(el.fromClient){
                                 return(
                                     <div className="message-receive-container" key={i}>
                                         <div className="message-receive-text">
-                                            <b>{el.username}</b>
-                                            <p>{el.message}</p>
+                                            <b>{el.username} </b>
+                                            <p id="cmes">{el.message}</p>
+                                            <sub id="dt">{el.datetime.slice(0,-4)}</sub>
                                         </div>
                                     </div>
                                 )
                             }
+                            // If message is from self
                             else{
                                 return(
                                     <div className="message-sent-container" key={i}>
                                         <div className="message-sent-text">
                                             <b>{el.username}</b>
-                                            <p>{el.message}</p>
+                                            <p id="cmes">{el.message}</p>
+                                            <sub id="dt">{el.datetime.slice(0,-4)}</sub>
                                         </div>
                                     </div>
                                 )
                             }
                         })}
-
-
-
-
-                        {/* <div className="message-sender">
-                            <form className="form-inline">
-                            
-                                <input type="text" className="form-control" required/>
-                            
-
-                            <input type="submit" value="Send" className="btn btn-primary"/>
-
-                            </form>
-                        </div> */}
-                        
 
                     </div>
 

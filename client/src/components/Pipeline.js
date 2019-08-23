@@ -5,6 +5,7 @@ import Chat from './Chat';
 import Forecast from './Forecast';
 
 const url = "http://localhost:3000/pipeline"
+const beachKey = "pipeline";
 
 class Pipeline extends Component {
     constructor(props) {
@@ -19,10 +20,8 @@ class Pipeline extends Component {
                     <p>Hello Friends, this is Pipline :)</p>
                 </div>
                 <Forecast url={url}/>
-                <Chat url={url}/>
-            </div>
-
-            
+                <Chat url={url} beachKey={beachKey}/>
+            </div>            
         );
     }
 }

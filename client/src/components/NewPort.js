@@ -5,6 +5,7 @@ import Chat from './Chat';
 import Forecast from './Forecast';
 
 const url = "http://localhost:3000/newport"
+const beachKey = "newport";
 
 class NewPort extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class NewPort extends Component {
                     <p>Hello Friends, this is New Port :)</p>
                 </div>
                 <Forecast url={url}/>
-                <Chat url={url}/>
+                <Chat url={url} beachKey={beachKey}/>
             </div>
         );
     }

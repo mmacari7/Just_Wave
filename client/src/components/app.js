@@ -27,12 +27,17 @@ var locationCode = "0001";
 
 class App extends Component {
 
-	customOnClick = function () {
-		axios.get("/api/getMe").then(response => {
-			console.log(response.data);
-		}).catch(error => {
-			console.log(error);
-		})
+	customOnClick = async function () {
+		// axios.get("/api/getMe").then(response => {
+		// 	console.log(response.data);
+		// }).catch(error => {
+		// 	console.log(error);
+		// })
+
+		let res = await axios.get("/api/getMe", {params: {message: "Hello"}});
+		console.log(res.data);
+		return;
+
 	}
 
 	render() {

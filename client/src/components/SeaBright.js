@@ -4,12 +4,12 @@ import '../css/index.css'
 import Chat from './Chat';
 import Forecast from './Forecast';
 
-const url = "http://localhost:3000/seabright"
+const url = "http://localhost:3000/seabright";
+const beachKey = "seabright";
 
 class SeaBright extends Component {
     constructor(props) {
         super(props);
-
     }
 
     render() {
@@ -20,7 +20,7 @@ class SeaBright extends Component {
                     <p>Hello Friends, this is Sea Bright :)</p>
                 </div>
                 {/* <Forecast url={url}/> */}
-                <Chat url={url}/>
+                <Chat url={url} beachKey={beachKey}/>
             </div>
         );
     }
