@@ -69,6 +69,7 @@ class Forecast extends Component {
         else {
             cityId = '0'
         }
+
         this.state = ({
             
             // isLoading: true,
@@ -87,7 +88,9 @@ class Forecast extends Component {
             temp: '',
             pressure: '',
             wind: '',
-            cloudcover: ''
+            cloudcover: '',
+            high: '',
+            low: '',
         })
 
         // OPENWEATHER API Response Schema Example
@@ -126,6 +129,10 @@ class Forecast extends Component {
     // laguna beach, ca -> 4483525
     // sea bright, nj -> 5104493
 
+    convertTemp(tempStr) {
+        let temp = String(tempStr);
+        return temp;
+    }
     async componentDidMount() {
         try {                                                           // .../weather?id=[ID]...
             let dataUrl = 'http://api.openweathermap.org/data/2.5/weather?id=' + this.state.cityId + '&appid=36fd2ffa1c54bea102544e13a622e3a5';
@@ -134,33 +141,25 @@ class Forecast extends Component {
                 throw Error(response.statusText);
             }
             const json = await response.json();
+
+            let fTemp = String(json.main.temp);
+
             this.setState(
                 { 
                     data: json, 
                     overview: json.weather[0].main,
-                    temp: json.main.temp,
-                    pressure: json.main.pressure
+                    temp: fTemp,
+                    pressure: json.main.pressure,
+                    high: json.main.temp_max,
+                    low: json.main.temp_min
                     // wind: json.main.wind.speed,
                     // cloudcover: json.main.clouds
                 });
-        } catch (error) {
+        } 
+        catch (error) {
             console.log(error);
         }
 
-            // Determine weather icon
-        //    let weatherId = data.data.weather[0].id;
-
-        //    if(weatherId <= 232) {
-        //         this.setState({ weatherIcon: ThunderStormIcon })
-        //    } else if(weatherId >= 300 && weatherId <= 531) {
-        //         this.setState({ weatherIcon: RainIcon });
-        //    } else if(weatherId >= 600 && weatherId <= 622 ) {
-        //         this.setState({ weatherIcon: SnowIcon });
-        //    } else if(weatherId === 800) {
-        //         this.setState({ weatherIcon: ClearIcon });
-        //    } else if(weatherId >= 801 && weatherId <= 804) {
-        //         this.setState({ weatherIcon: CloudsIcon });
-        //    }
     }
     
 
@@ -174,17 +173,16 @@ class Forecast extends Component {
             <div className="container forecast-container">
                 <div className="container">
                     <div>
-                    <p>City ID: { this.state.cityId } </p>
-                    <p>Overview: { this.state.overview } </p>
-                    <p>Current Temperature: { this.state.temp } Kelvin</p>
-                    <p>Pressure: { this.state.pressure }</p>
-                    {/* Cloud Cover: { this.state.cloudcover.all } */}
-                    {/* Wind Speed: { this.state.wind.speed } */}
-                    {/* Wind Direction: { this.state.wind.direction } */}
+                        <h3 className="centered">{ this.state.temp } K</h3>
+                        <h3 className="centered">{ this.state.overview }</h3>
+                        <h4 className="centered">High: { this.state.high } K &nbsp; &nbsp; &nbsp; &nbsp; Low: { this.state.low } K</h4>
+                        {/* Cloud Cover: { this.state.cloudcover.all } */}
+                        {/* Wind Speed: { this.state.wind.speed } */}
+                        {/* Wind Direction: { this.state.wind.direction } */}
 
                    
                     </div>
-                    <div className="row">
+                    {/* <div className="row">
                         <div className="col-sm fc-item">
                             <div className="row">
                                 <img src="..." alt="img" width="200" height="150"/>
@@ -252,7 +250,7 @@ class Forecast extends Component {
                                 <p>Breakpoints</p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );
