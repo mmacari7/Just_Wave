@@ -71,17 +71,8 @@ class Forecast extends Component {
         }
 
         this.state = ({
-            
             // isLoading: true,
             currentTemp: '79F',
-            // humidity: '',
-            // wind: '',
-            // windDirection: '',
-            // currentCondition: '',
-            // currentConditionDescription: '',
-            // weatherIcon: '',
-            // cityName: '',
-            // cityNotFound: '',
             cityId: cityId,
             data: {},
             overview: '',
@@ -90,7 +81,7 @@ class Forecast extends Component {
             wind: '',
             cloudcover: '',
             high: '',
-            low: '',
+            low: ''
         })
 
         // OPENWEATHER API Response Schema Example
@@ -144,27 +135,34 @@ class Forecast extends Component {
 
             let fTemp = String(json.main.temp);
 
-            this.setState(
-                { 
-                    data: json, 
-                    overview: json.weather[0].main,
-                    temp: fTemp,
-                    pressure: json.main.pressure,
-                    high: json.main.temp_max,
-                    low: json.main.temp_min
-                    // wind: json.main.wind.speed,
-                    // cloudcover: json.main.clouds
-                });
+            this.setState({ 
+                data: json, 
+                overview: json.weather[0].main,
+                temp: fTemp,
+                pressure: json.main.pressure,
+                high: json.main.temp_max,
+                low: json.main.temp_min,
+                // wind: json.main.wind
+                // wind: json.main.wind.speed,
+                // cloudcover: json.main.clouds
+            });
+
+            let curTemp = parseInt((parseInt(this.state.temp) - 273) * (9/5) + 32);
+            let highTemp = parseInt((parseInt(this.state.high) - 273) * (9/5) + 32);
+            let lowTemp = parseInt((parseInt(this.state.low) - 273) * (9/5) + 32);
+
+            // let windSpeed = String(this.state.wind.speed)
+            this.setState({ temp: curTemp, high: highTemp, low: lowTemp })
+
         } 
         catch (error) {
             console.log(error);
         }
-
     }
     
 
     render() {
-
+        
         if (!this.state.data) {
             return <div />
         }
@@ -173,84 +171,14 @@ class Forecast extends Component {
             <div className="container forecast-container">
                 <div className="container">
                     <div>
-                        <h3 className="centered">{ this.state.temp } K</h3>
+                        <h3 className="centered">{ this.state.temp }&deg; F</h3>
                         <h3 className="centered">{ this.state.overview }</h3>
-                        <h4 className="centered">High: { this.state.high } K &nbsp; &nbsp; &nbsp; &nbsp; Low: { this.state.low } K</h4>
+                        <p className="centered">High: { this.state.high }&deg; F &nbsp; &nbsp; &nbsp; &nbsp; Low: { this.state.low }&deg; F</p>
+                        {/* <p className="centered">Wind Speed: { this.state.wind }</p> */}
                         {/* Cloud Cover: { this.state.cloudcover.all } */}
                         {/* Wind Speed: { this.state.wind.speed } */}
                         {/* Wind Direction: { this.state.wind.direction } */}
-
-                   
                     </div>
-                    {/* <div className="row">
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                                <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Temperature</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                        <div className="row">
-                        <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Cloud Cover</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Chance of Precip</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Humidity</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                                <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Depth of Sea Floor</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                        <div className="row">
-                        <img src="..." alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Tides</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Human Concentration</p>
-                            </div>
-                        </div>
-                        <div className="col-sm fc-item">
-                            <div className="row">
-                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
-                            </div>
-                            <div className="row">
-                                <p>Breakpoints</p>
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         );

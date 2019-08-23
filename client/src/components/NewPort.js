@@ -15,8 +15,7 @@ class NewPort extends Component {
         return (
             <div className="container">
                 <div>
-                    <h1>NEWPORT</h1>
-                    <p>Hello Friends, this is New Port :)</p>
+                    <h1 className="centered">Newport Beach, CA</h1>
                 </div>
                 <Forecast url={url}/>
                 <Chat url={url}/>

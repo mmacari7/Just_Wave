@@ -15,8 +15,7 @@ class Laguana extends Component {
         return (
             <div className="container">
                 <div>
-                    <h1>LAGUANA</h1>
-                    <p>Hello Friends, this is Laguana :)</p>
+                    <h1 className="centered">Laguana Beach, CA</h1>
                 </div>
                 <Forecast url={url}/>
                 <Chat url={url}/>

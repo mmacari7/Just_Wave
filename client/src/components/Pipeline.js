@@ -15,8 +15,7 @@ class Pipeline extends Component {
         return (
             <div className="container">
                 <div>
-                    <h1>PIPELINE</h1> 
-                    <p>Hello Friends, this is Pipline :)</p>
+                    <h1 className="centered">Pipeline, HI</h1> 
                 </div>
                 <Forecast url={url}/>
                 <Chat url={url}/>
