@@ -18,7 +18,7 @@ class SeaBright extends Component {
                 <div>
                     <h1 className="centered">Sea Bright, NJ</h1>
                 </div>
-                {/* <Forecast url={url}/> */}
+                <Forecast url={url}/>
                 <Chat url={url} beachKey={beachKey}/>
             </div>
         );
