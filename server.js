@@ -7,6 +7,7 @@ const redis = require('redis');
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
+const session = require('express-session');
 
 // How many messages to load from Redis and send to client
 const numMessages = 10;
@@ -20,8 +21,18 @@ const client = redis.createClient();
 client.flushallAsync();
 
 // Serves our build from webpack --> production
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 app.use(express.static("dist"));
 app.use('/assets', express.static("assets"));
+
+// Set a cookie for tracking user names
+app.use(session({
+    name: "UserList",
+    secret: "I am batman",
+    resave: false,
+    saveUninitialized: true
+}))
 
 // Get the base route
 app.get('/api/getMe', async (req, res) => {
@@ -29,6 +40,27 @@ app.get('/api/getMe', async (req, res) => {
 
     console.log("Doing nothing");
     res.json({data: "Hello World"});
+})
+
+// Handle Temp User Name Submission
+app.get('/api/get-username', async (req, res)=>{
+    if(req.session.username){
+        res.json({username: req.session.username});
+        return;
+    }
+    else {
+        res.json({username: false});
+        return;
+    }
+})
+
+// Set the user name after it is input
+app.post('/api/set-username', async (req, res)=> {
+    // Sets our cookie
+    req.session.username = req.body.username;
+
+    res.json({message: "Set user name to: " + req.body.username});
+
 })
 
 // Create routes for each beach that we want to cache in Redis
@@ -82,7 +114,6 @@ seabright.on("connection", async (socket) => {
         // Object params
         let username = obj.username;
         let message = obj.message;
-        let fromClient = true;
         let datetime = obj.datetime;
 
         // Define message key for message entry to be unique datetime for seabright
@@ -98,13 +129,13 @@ seabright.on("connection", async (socket) => {
         }
         // Set message in redis cache
         try {
-            await client.setAsync(messagekey, JSON.stringify({datetime, fromClient, username, message}));
+            await client.setAsync(messagekey, JSON.stringify({datetime, username, message}));
         }
         catch(e){
             console.log(e);
         }
 
-        socket.broadcast.emit('client-message', {datetime, fromClient, username, message});
+        socket.broadcast.emit('client-message', {datetime, username, message});
 
     })
 
@@ -119,7 +150,6 @@ pipline.on("connection", async (socket)=> {
         // Object params
         let username = obj.username;
         let message = obj.message;
-        let fromClient = true;
         let datetime = obj.datetime;
 
         // Define message key for message entry to be unique datetime for seabright
@@ -135,13 +165,13 @@ pipline.on("connection", async (socket)=> {
         }
         // Set message in redis cache
         try {
-            await client.setAsync(messagekey, JSON.stringify({datetime, fromClient, username, message}));
+            await client.setAsync(messagekey, JSON.stringify({datetime, username, message}));
         }
         catch(e){
             console.log(e);
         }
 
-        socket.broadcast.emit('client-message', {datetime, fromClient, username, message});
+        socket.broadcast.emit('client-message', {datetime, username, message});
 
     })
 
@@ -156,7 +186,6 @@ newport.on("connection", async (socket)=> {
         // Object params
         let username = obj.username;
         let message = obj.message;
-        let fromClient = true;
         let datetime = obj.datetime;
 
         // Define message key for message entry to be unique datetime for seabright
@@ -172,13 +201,13 @@ newport.on("connection", async (socket)=> {
         }
         // Set message in redis cache
         try {
-            await client.setAsync(messagekey, JSON.stringify({datetime, fromClient, username, message}));
+            await client.setAsync(messagekey, JSON.stringify({datetime, username, message}));
         }
         catch(e){
             console.log(e);
         }
 
-        socket.broadcast.emit('client-message', {datetime, fromClient, username, message});
+        socket.broadcast.emit('client-message', {datetime, username, message});
 
     })
 
@@ -193,7 +222,6 @@ laguana.on("connection", async (socket)=> {
         // Object params
         let username = obj.username;
         let message = obj.message;
-        let fromClient = true;
         let datetime = obj.datetime;
 
         // Define message key for message entry to be unique datetime for seabright
@@ -209,13 +237,13 @@ laguana.on("connection", async (socket)=> {
         }
         // Set message in redis cache
         try {
-            await client.setAsync(messagekey, JSON.stringify({datetime, fromClient, username, message}));
+            await client.setAsync(messagekey, JSON.stringify({datetime, username, message}));
         }
         catch(e){
             console.log(e);
         }
 
-        socket.broadcast.emit('client-message', {datetime, fromClient, username, message});
+        socket.broadcast.emit('client-message', {datetime, username, message});
 
     })
 
@@ -230,7 +258,6 @@ oceancity.on("connection", async (socket)=> {
         // Object params
         let username = obj.username;
         let message = obj.message;
-        let fromClient = true;
         let datetime = obj.datetime;
 
         // Define message key for message entry to be unique datetime for seabright
@@ -246,13 +273,13 @@ oceancity.on("connection", async (socket)=> {
         }
         // Set message in redis cache
         try {
-            await client.setAsync(messagekey, JSON.stringify({datetime, fromClient, username, message}));
+            await client.setAsync(messagekey, JSON.stringify({datetime, username, message}));
         }
         catch(e){
             console.log(e);
         }
 
-        socket.broadcast.emit('client-message', {datetime, fromClient, username, message});
+        socket.broadcast.emit('client-message', {datetime, username, message});
 
     })
 

@@ -18,7 +18,7 @@ class Chat extends Component {
 
         // State for the component
         this.state = {
-            username: undefined,
+            username: "",
             url: this.props.url,
             beachKey: this.props.beachKey,
             socket: io(this.props.url),
@@ -41,6 +41,13 @@ class Chat extends Component {
         // Load the cached conversation for socket with call to api
         let res = await axios.get("/api/get-conversation", {params: {key: this.state.beachKey}});
 
+        let un = await axios.get("/api/get-username");
+
+        // If user has a cookie for their username, we set the state back to their previous UN
+        if(un.data.username){
+            this.setState({username: un.data.username, usernameDisabled: true, chatDisabled: false})
+        }
+
         // Sets the initial messages state from Redis cache on server
         this.setState({receivedMessages: res.data.messagesForClient});
         this.scrollToBottom();
@@ -49,16 +56,22 @@ class Chat extends Component {
         this.state.socket.on('client-message', (obj) => {
             // Set the state based on message from server
             this.setState(prevState => ({
-                receivedMessages: [...prevState.receivedMessages, {datetime: obj.datetime, fromClient: obj.fromClient, username: obj.username, message: obj.message}]
+                receivedMessages: [...prevState.receivedMessages, {datetime: obj.datetime, username: obj.username, message: obj.message}]
             }))
             this.scrollToBottom();
         })
     }
 
     // Handles submission of username
-    handleUsernameSubmit(e){
+    async handleUsernameSubmit(e){
         e.preventDefault();
         this.setState({usernameDisabled: true, chatDisabled: false})
+
+        // Sets the username in the session cookie for returning visitors
+        let res = await axios.post('/api/set-username', {username: this.state.username});
+
+        console.log(res.data.message);
+
     }
 
     // Changes the state based on current username input
@@ -79,7 +92,7 @@ class Chat extends Component {
 
         // Set self message in state
         this.setState(prevState => ({
-            receivedMessages: [...prevState.receivedMessages, {datetime: dt, fromClient: false, username: "You", message: this.state.message}]
+            receivedMessages: [...prevState.receivedMessages, {datetime: dt, username: this.state.username, message: this.state.message}]
         }))
 
         // Change message back to empty string
@@ -106,7 +119,7 @@ class Chat extends Component {
                 <form onSubmit={this.handleUsernameSubmit}>
                     <div className='form-group'>
                         <label htmlFor="username-input">Temp User Name</label>
-                        <input type="text" onChange={this.handleUsernameChange} className="form-control" disabled={this.state.usernameDisabled} required/>
+                        <input type="text" className="form-control" disabled={this.state.usernameDisabled} value={this.state.username} onChange={this.handleUsernameChange} required/>
                         <button type="submit" disabled={this.state.usernameDisabled} className="btn btn-primary">Enter</button>
                     </div>
                 </form>
@@ -116,11 +129,11 @@ class Chat extends Component {
                         
                         {this.state.receivedMessages.map((el, i) => {
                             // If the message is from another
-                            if(el.fromClient){
+                            if(el.username !== this.state.username){
                                 return(
                                     <div className="message-receive-container" key={i}>
                                         <div className="message-receive-text">
-                                            <b>{el.username} </b>
+                                            <b id="undisp">{el.username} </b>
                                             <p id="cmes">{el.message}</p>
                                             <sub id="dt">{el.datetime.slice(0,-4)}</sub>
                                         </div>
@@ -132,7 +145,7 @@ class Chat extends Component {
                                 return(
                                     <div className="message-sent-container" key={i}>
                                         <div className="message-sent-text">
-                                            <b>{el.username}</b>
+                                            <b id="undisp">You</b>
                                             <p id="cmes">{el.message}</p>
                                             <sub id="dt">{el.datetime.slice(0,-4)}</sub>
                                         </div>

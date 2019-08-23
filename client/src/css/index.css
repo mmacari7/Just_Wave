@@ -137,6 +137,11 @@ code {
   font-size: 7pt;
 }
 
+#undisp {
+  color: gray;
+  font-style: italic;
+}
+
 .centered {
   text-align: center;
   margin-left: auto;
