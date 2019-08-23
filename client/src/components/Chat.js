@@ -65,7 +65,13 @@ class Chat extends Component {
     // Handles submission of username
     async handleUsernameSubmit(e){
         e.preventDefault();
+
+        // Disable the inputs
         this.setState({usernameDisabled: true, chatDisabled: false})
+
+        let temp = this.state.username.charAt(0).toUpperCase() + this.state.username.slice(1).toLowerCase();
+
+        this.setState({username: temp});
 
         // Sets the username in the session cookie for returning visitors
         let res = await axios.post('/api/set-username', {username: this.state.username});
