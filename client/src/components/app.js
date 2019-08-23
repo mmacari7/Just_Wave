@@ -41,12 +41,12 @@ class App extends Component {
 				<Header />
 				<button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button>
 				{/* <Switch> */}
-					<Route exact path="/" component={Home} />
-					<Route path="/seabright" component={SeaBright} />
-					<Route path="/pipeline" component={Pipeline} />
-					<Route path="/newport" component={NewPort} />
-					<Route path="/laguana" component={Laguana} />
-					<Route path="/oceancity" component={OceanCity} />
+				<Route exact path="/" component={Home} />
+				<Route path="/seabright" component={SeaBright} />
+				<Route path="/pipeline" component={Pipeline} />
+				<Route path="/newport" component={NewPort} />
+				<Route path="/laguana" component={Laguana} />
+				<Route path="/oceancity" component={OceanCity} />
 				{/* </Switch> */}
 			</Router>
 

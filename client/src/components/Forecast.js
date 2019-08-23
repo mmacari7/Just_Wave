@@ -187,7 +187,7 @@ class Forecast extends Component {
                     <div className="row">
                         <div className="col-sm fc-item">
                             <div className="row">
-                                <img src="..." alt="img" width="200" height="150"/>
+                                <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
                             </div>
                             <div className="row">
                                 <p>Temperature</p>
@@ -195,7 +195,7 @@ class Forecast extends Component {
                         </div>
                         <div className="col-sm fc-item">
                         <div className="row">
-                        <img src="..." alt="img" width="200" height="150"/>
+                        <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
                             </div>
                             <div className="row">
                                 <p>Cloud Cover</p>
@@ -203,7 +203,7 @@ class Forecast extends Component {
                         </div>
                         <div className="col-sm fc-item">
                             <div className="row">
-                            <img src="..." alt="img" width="200" height="150"/>
+                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
                             </div>
                             <div className="row">
                                 <p>Chance of Precip</p>
@@ -211,7 +211,7 @@ class Forecast extends Component {
                         </div>
                         <div className="col-sm fc-item">
                             <div className="row">
-                            <img src="..." alt="img" width="200" height="150"/>
+                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
                             </div>
                             <div className="row">
                                 <p>Humidity</p>
@@ -222,7 +222,7 @@ class Forecast extends Component {
                     <div className="row">
                         <div className="col-sm fc-item">
                             <div className="row">
-                                <img src="..." alt="img" width="200" height="150"/>
+                                <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
                             </div>
                             <div className="row">
                                 <p>Depth of Sea Floor</p>
@@ -238,7 +238,7 @@ class Forecast extends Component {
                         </div>
                         <div className="col-sm fc-item">
                             <div className="row">
-                            <img src="..." alt="img" width="200" height="150"/>
+                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
                             </div>
                             <div className="row">
                                 <p>Human Concentration</p>
@@ -246,7 +246,7 @@ class Forecast extends Component {
                         </div>
                         <div className="col-sm fc-item">
                             <div className="row">
-                            <img src="..." alt="img" width="200" height="150"/>
+                            <img src="/assets/wave.jpg" alt="img" width="200" height="150"/>
                             </div>
                             <div className="row">
                                 <p>Breakpoints</p>

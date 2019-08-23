@@ -8,15 +8,20 @@ const io = require("socket.io")(http);
 
 // Serves our build from webpack --> production
 app.use(express.static("dist"));
+app.use('/assets', express.static("assets"));
+
+// Serve index to all routes for build
+app.get('*', async (req, res)=> {
+    res.sendFile('index.html', {root: path.join(__dirname, 'dist')})
+})
 
 // Get the base route
-app.get('/api/getMe', (req, res) => {
+app.get('/api/getMe', async (req, res) => {
     console.log("Doing nothing");
     res.json({data: "Hello World"});
 })
 
 // Defines our socket connections
-// NOTE!!!!::::: COULD CAUSE ISSUES WHEN EXPRESS IS ON LOCALHOST 3000
 const seabright = io.of("/seabright");
 const pipline = io.of("/pipeline");
 const newport = io.of("/newport");
