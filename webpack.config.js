@@ -31,6 +31,13 @@ const config = {
                         loader: "html-loader"
                     }
                 ]
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {}
+                }]
             }
         ]
     },

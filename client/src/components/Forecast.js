@@ -1,6 +1,21 @@
 import React, {Component} from "react";
 import '../css/index.css'
 
+// import ThunderStormIcon from './assets/weather_icons/01W.svg';
+import RainIcon from '../../../assets/rain.png';
+import SnowIcon from '../../../assets/snow.png';
+import HazeIcon from '../../../assets/hazy.png';
+import ClearIcon from '../../../assets/sunny.png';
+import CloudsIcon from '../../../assets/cloudy.png';
+import MostlyCloudyIcon from '../../../assets/mostlycloudy.png';
+import PartlyCloudyIcon from '../../../assets/partlycloudy.png';
+import CloudyIcon from '../../../assets/cloudy.png';
+import ThunderStormIcon from '../../../assets/thunderstorm.png';
+
+// import NoLocationFound from './assets/no-location.svg';
+// import LoadingIcon from './assets/loading.svg';
+
+
 class Forecast extends Component {
     constructor(props) {
         super(props);
@@ -29,12 +44,14 @@ class Forecast extends Component {
             cityId: cityId,
             data: {},
             overview: '',
+            description: '',
             temp: '',
             pressure: '',
             wind: '',
             cloudcover: '',
             high: '',
-            low: ''
+            low: '',
+            code: '',
         })
 
         // OPENWEATHER API Response Schema Example
@@ -77,10 +94,12 @@ class Forecast extends Component {
             this.setState({ 
                 data: json, 
                 overview: json.weather[0].main,
+                description: json.weather[0].description,
                 temp: json.main.temp,
                 pressure: json.main.pressure,
                 high: json.main.temp_max,
                 low: json.main.temp_min,
+                code: json.weather[0].id
                 // wind: json.main.wind
                 // wind: json.main.wind.speed,
                 // cloudcover: json.main.clouds
@@ -89,8 +108,40 @@ class Forecast extends Component {
             let curTemp = parseInt((parseInt(this.state.temp) - 273) * (9/5) + 32);
             let highTemp = parseInt((parseInt(this.state.high) - 273) * (9/5) + 32);
             let lowTemp = parseInt((parseInt(this.state.low) - 273) * (9/5) + 32);
+            let descr = this.state.description.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
             // let windSpeed = String(this.state.wind.speed)
-            this.setState({ temp: curTemp, high: highTemp, low: lowTemp })
+            if (descr == this.state.overview) {
+                descr = '';
+            }
+            this.setState({ temp: curTemp, high: highTemp, low: lowTemp, description: descr })
+
+
+            let weatherId = this.state.code;
+
+            if(weatherId <= 232) {
+                this.setState({ weatherIcon: ThunderStormIcon })
+            } 
+            else if(weatherId >= 300 && weatherId <= 531) {
+                this.setState({ weatherIcon: RainIcon });
+            } 
+            else if(weatherId >= 600 && weatherId <= 622 ) {
+                this.setState({ weatherIcon: SnowIcon });
+            } 
+            else if(weatherId >= 700 && weatherId < 800 ) {
+                this.setState({ weatherIcon: HazeIcon });
+            } 
+            else if(weatherId === 800) {
+                this.setState({ weatherIcon: ClearIcon });
+            } 
+            else if(weatherId >= 801 && weatherId <= 802) {
+                this.setState({ weatherIcon: PartlyCloudyIcon });
+            }
+            else if(weatherId === 803) {
+                this.setState({ weatherIcon: MostlyCloudyIcon });
+            } 
+            else if(weatherId === 804) {
+                this.setState({ weatherIcon: CloudyIcon });
+            } 
         } 
         catch (error) {
             console.log(error);
@@ -102,8 +153,10 @@ class Forecast extends Component {
             <div className="container forecast-container">
                 <div className="container">
                     <div>
-                        <h3 className="centered">{ this.state.temp }&deg; F</h3>
-                        <h3 className="centered">{ this.state.overview }</h3>
+                        <img className="weather-icon" src={this.state.weatherIcon} alt='Weather icon'/>
+                        <h3 className="centered cur-weather">{ this.state.temp }&deg; F</h3>
+                        <h3 className="centered cur-weather">{ this.state.overview }</h3>
+                        <h4 className="centered">{ this.state.description }</h4>
                         <p className="centered">High: { this.state.high }&deg; F &nbsp; &nbsp; &nbsp; &nbsp; Low: { this.state.low }&deg; F</p>
                         {/* <p className="centered">Wind Speed: { this.state.wind }</p> */}
                         {/* Cloud Cover: { this.state.cloudcover.all } */}
