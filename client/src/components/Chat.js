@@ -44,7 +44,7 @@ class Chat extends Component {
         let un = await axios.get("/api/get-username");
 
         // If user has a cookie for their username, we set the state back to their previous UN
-        if(un.data.username){
+        if(un.data.username) {
             this.setState({username: un.data.username, usernameDisabled: true, chatDisabled: false})
         }
 
@@ -130,11 +130,16 @@ class Chat extends Component {
             <div className="chat-container"> 
                 <h2 className="loc-heading">Live Chat</h2>
 
-                <form onSubmit={this.handleUsernameSubmit}>
-                    <div className='form-group'>
-                        <label htmlFor="username-input">Temp User Name</label>
-                        <input type="text" className="form-control" disabled={this.state.usernameDisabled} value={this.state.username} onChange={this.handleUsernameChange} required/>
-                        <button type="submit" disabled={this.state.usernameDisabled} className="btn btn-primary">Enter</button>
+                <form className="form-inline" onSubmit={this.handleUsernameSubmit}>
+                    <div className='form-row'>
+                        <div className="col-auto">
+                            <label htmlFor="username-input">Enter username.</label>
+                            <input type="text" className="form-control" disabled={this.state.usernameDisabled} value={this.state.username} onChange={this.handleUsernameChange} required/>
+                        </div>
+                        <div className="col-auto">
+                            <label htmlFor="username-input">Save it.</label>
+                            <button type="submit" disabled={this.state.usernameDisabled} className="btn btn-primary">Enter</button>
+                        </div>
                     </div>
                 </form>
 
@@ -171,15 +176,14 @@ class Chat extends Component {
                     </div>
 
                     <div className="message-sender">
-                        <form className="form-group" onSubmit={this.handleSendMessage}>
-                        
+                        <form className="form-inline" onSubmit={this.handleSendMessage}>
                             <input type="text" placeholder="Enter Message" className="form-control input-lg" disabled={this.state.chatDisabled} value={this.state.message} onChange={this.handleMessageChange} required/>
                             <input type="submit" disabled={this.state.chatDisabled} value="Send" className="btn btn-primary"/>
-
                         </form>
                     </div>
 
                 </div>
+                <div className="spacer-50 white">.<br/>.<br/>.<br/>.</div>
             </div>
         );
     }
