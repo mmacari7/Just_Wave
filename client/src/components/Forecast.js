@@ -50,32 +50,6 @@ class Forecast extends Component {
             code: '',
         })
 
-        // OPENWEATHER API Response Schema Example
-        // {
-        //     "coord": {"lon":138.6,"lat":-34.93},
-        //     "weather":[
-        //         {"id":803,
-        //         "main":"Clouds",
-        //         "description":"broken clouds",
-        //         "icon":"04n"}
-        //     ],
-        //     "base":"stations",
-        //     "main":{
-        //         "temp":284.51,
-        //         "pressure":1027,
-        //         "humidity":87,
-        //         "temp_min":282.59,
-        //         "temp_max":285.93},
-        //         "wind":{"speed":5.46,"deg":260.351},
-        //         "rain":{"3h":0.063},
-        //         "clouds":{"all":75},
-        //         "dt":1566319899,
-        //         "sys":{"type":3,"id":2001119,"message":0.0067,"country":"AU","sunrise":1566336004,"sunset":1566375490},
-        //         "timezone":34200,
-        //         "id":2078025,
-        //         "name":"Adelaide",
-        //         "cod":200
-        //     }
     }
 
     async componentDidMount() {
@@ -154,10 +128,7 @@ class Forecast extends Component {
                         <h3 className="centered cur-weather">{ this.state.overview }</h3>
                         <h4 className="centered">{ this.state.description }</h4>
                         <p className="centered">High: { this.state.high }&deg; F &nbsp; &nbsp; &nbsp; &nbsp; Low: { this.state.low }&deg; F</p>
-                        {/* <p className="centered">Wind Speed: { this.state.wind }</p> */}
-                        {/* Cloud Cover: { this.state.cloudcover.all } */}
-                        {/* Wind Speed: { this.state.wind.speed } */}
-                        {/* Wind Direction: { this.state.wind.direction } */}
+
                     </div>
                 </div>
             </div>

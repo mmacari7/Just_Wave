@@ -165,7 +165,7 @@ pipline.on("connection", async (socket)=> {
         let message = obj.message;
         let datetime = obj.datetime;
 
-        // Define message key for message entry to be unique datetime for seabright
+        // Define message key for message entry to be unique datetime for pipeline
         let messagekey = beachKey + ':' + datetime;
 
         // Store the message object into Redis list with Key based on datetime
@@ -201,7 +201,7 @@ newport.on("connection", async (socket)=> {
         let message = obj.message;
         let datetime = obj.datetime;
 
-        // Define message key for message entry to be unique datetime for seabright
+        // Define message key for message entry to be unique datetime for newport
         let messagekey = beachKey + ':' + datetime;
 
         // Store the message object into Redis list with Key based on datetime
@@ -237,7 +237,7 @@ laguana.on("connection", async (socket)=> {
         let message = obj.message;
         let datetime = obj.datetime;
 
-        // Define message key for message entry to be unique datetime for seabright
+        // Define message key for message entry to be unique datetime for laguana
         let messagekey = beachKey + ':' + datetime;
 
         // Store the message object into Redis list with Key based on datetime
@@ -273,7 +273,7 @@ oceancity.on("connection", async (socket)=> {
         let message = obj.message;
         let datetime = obj.datetime;
 
-        // Define message key for message entry to be unique datetime for seabright
+        // Define message key for message entry to be unique datetime for oceancity
         let messagekey = beachKey + ':' + datetime;
 
         // Store the message object into Redis list with Key based on datetime

@@ -22,7 +22,7 @@ Use `npm install` to download all of the dependencies
 
 To use the production version of the program first make sure the dist folder contains `index.html` and `bundle.js`. 
 
-If this folder does not exist, or modifications were made to the program were made, run `npm run build` and the webpack will compile the build and output/update `index.html` and `bundle.js` into the dist folder. 
+If this folder does not exist, or modifications were made to the program were made that you want to test, run `npm run build` and the webpack will compile the build and output/update `index.html` and `bundle.js` into the dist folder. 
 
 Then simply run `npm run server` and the dist files will be served by express on localhost:3000. Both the API, and the Client in this case will be running on localhost:3000. 
 
@@ -54,3 +54,11 @@ The sockets in the server are responsible for all of the chat functionality. A s
 
 When a user submits a message on the client, the server side socket connection receives the message, and then broadcasts it back and updates the state in the `Chat.js` component of react. The chat for each connection listening then updates with the message.
 
+
+### OpenWeather API
+
+OpenWeather API is used to retreive updated weather reports for each of the surfing locations. The API is called when one of the surf location routes is hit. For each location, the current temperature and description of the condtions, as well as the high and low temperatures for the day, are retrieved, processed, and displayed. Based on the weather condition identifier provided by the API, an appropriate weather icon is displayed. Weather icons are adapted from: https://cdn.dribbble.com/users/735177/screenshots/1879422/attachments/318506/weather_underground_icons.ai. 
+
+### Home
+
+Home page icons are from support.apple.com.
