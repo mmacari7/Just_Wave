@@ -54,3 +54,11 @@ The sockets in the server are responsible for all of the chat functionality. A s
 
 When a user submits a message on the client, the server side socket connection receives the message, and then broadcasts it back and updates the state in the `Chat.js` component of react. The chat for each connection listening then updates with the message.
 
+
+### OpenWeather API
+
+OpenWeather API is used to retreive updated weather reports for each of the surfing locations. The API is called when one of the surf location routes is hit. For each location, the current temperature and description of the condtions, as well as the high and low temperatures for the day, are retrieved, processed, and displayed. Based on the weather condition identifier provided by the API, an appropriate weather icon is displayed. Weather icons are adapted from: https://cdn.dribbble.com/users/735177/screenshots/1879422/attachments/318506/weather_underground_icons.ai. 
+
+### Home
+
+Home page icons are from support.apple.com.
