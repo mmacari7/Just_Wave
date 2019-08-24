@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import '../css/index.css'
 
-// import ThunderStormIcon from './assets/weather_icons/01W.svg';
 import RainIcon from '../../../assets/rain.png';
 import SnowIcon from '../../../assets/snow.png';
 import HazeIcon from '../../../assets/hazy.png';
@@ -11,9 +10,6 @@ import MostlyCloudyIcon from '../../../assets/mostlycloudy.png';
 import PartlyCloudyIcon from '../../../assets/partlycloudy.png';
 import CloudyIcon from '../../../assets/cloudy.png';
 import ThunderStormIcon from '../../../assets/thunderstorm.png';
-
-// import NoLocationFound from './assets/no-location.svg';
-// import LoadingIcon from './assets/loading.svg';
 
 
 class Forecast extends Component {
