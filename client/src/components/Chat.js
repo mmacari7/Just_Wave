@@ -65,12 +65,26 @@ class Chat extends Component {
     // Handles submission of username
     async handleUsernameSubmit(e){
         e.preventDefault();
-        this.setState({usernameDisabled: true, chatDisabled: false})
 
-        // Sets the username in the session cookie for returning visitors
-        let res = await axios.post('/api/set-username', {username: this.state.username});
+        // Reformats the username
+        let temp = (this.state.username.charAt(0).toUpperCase() + this.state.username.slice(1).toLowerCase()).trim();
+        this.setState({username: temp});
 
-        console.log(res.data.message);
+        let check = await axios.get('/api/check-username', {params: {username: temp}});
+
+        // If the user name is already in use we alert
+        if(check.data.ex) {
+            alert("UserName already in use! :( Try another");
+            this.setState({username: ""});
+        }
+        else{
+            // Disable the inputs
+            this.setState({usernameDisabled: true, chatDisabled: false})
+
+            // Sets the username in the session cookie for returning visitors
+            let res = await axios.post('/api/set-username', {username: this.state.username});
+            console.log(res.data.message);
+        }
 
     }
 

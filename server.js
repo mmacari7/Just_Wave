@@ -34,14 +34,6 @@ app.use(session({
     saveUninitialized: true
 }))
 
-// Get the base route
-app.get('/api/getMe', async (req, res) => {
-    console.log(req.query);
-
-    console.log("Doing nothing");
-    res.json({data: "Hello World"});
-})
-
 // Handle Temp User Name Submission
 app.get('/api/get-username', async (req, res)=>{
     if(req.session.username){
@@ -61,6 +53,9 @@ app.post('/api/set-username', async (req, res)=> {
 
     res.json({message: "Set user name to: " + req.body.username});
 
+    // Set user name in Redis Cache
+    await client.setAsync(req.body.username, true);
+    
 })
 
 // Create routes for each beach that we want to cache in Redis
@@ -88,6 +83,24 @@ app.get('/api/get-conversation', async (req, res)=> {
     }
     
     res.json({messagesForClient});
+
+})
+
+// Check if user name is in use in Redis array
+app.get('/api/check-username', async (req, res) => {
+    // Gets the username that we are going to check with Redis
+    let usernametocheck = req.query.username;
+
+    let exists = await client.existsAsync(usernametocheck);
+
+    if(exists == 0){
+        res.json({ex: false});
+    }
+    else {
+        res.json({ex: true});
+    }
+
+    return;
 
 })
 
