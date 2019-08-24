@@ -22,7 +22,7 @@ Use `npm install` to download all of the dependencies
 
 To use the production version of the program first make sure the dist folder contains `index.html` and `bundle.js`. 
 
-If this folder does not exist, or modifications were made to the program were made, run `npm run build` and the webpack will compile the build and output/update `index.html` and `bundle.js` into the dist folder. 
+If this folder does not exist, or modifications were made to the program were made that you want to test, run `npm run build` and the webpack will compile the build and output/update `index.html` and `bundle.js` into the dist folder. 
 
 Then simply run `npm run server` and the dist files will be served by express on localhost:3000. Both the API, and the Client in this case will be running on localhost:3000. 
 
