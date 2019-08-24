@@ -8,10 +8,21 @@ class Home extends Component {
 
     render() {
         return (
-            <div className="jumbotron jumbotron-fluid jumbotron-main">
-                <div className="container">
-                    <h1 className="display-4">Just Wave</h1>
-                    <p className="lead">Welcome to Just Wave, your source for surf and weather information at some of America's hottest surf spots. Select a location for up-to-date reports and to communicate with other local surfers.</p>
+            <div>
+                <div className="jumbotron jumbotron-fluid jumbotron-main">
+                    <div className="container">
+                        <h1 className="display-4">Just Wave</h1>
+                        <p className="lead">Welcome to Just Wave, your source for surf and weather information at some of America's hottest surf spots. Select a location from the top bar for up-to-date weather reports and to communicate with other local surfers.</p>
+                    </div>
+                </div>
+
+                <div className="row home-container">
+                    <div className="col home-col container">
+                        WEATHERWEATHER
+                    </div>
+                    <div className="col home-col container">
+                        CHATCHATCHATCHAT
+                    </div>
                 </div>
             </div>
         );

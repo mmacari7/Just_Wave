@@ -40,7 +40,6 @@ class App extends Component {
 		return (
 			<Router>
 				<Header />
-				<button type="button" className="btn btn-primary" onClick={this.customOnClick}>ClickMe</button>
 				{/* <Switch> */}
 				<Route exact path="/" component={Home} />
 				<Route path="/seabright" component={SeaBright} />
